@@ -1,10 +1,25 @@
 <script lang="ts">
-	import { ArrowRight, Check, Clock, Mail, MapPin, Phone, Star } from '@lucide/svelte';
+	import { ArrowRight, Check, ChevronDown, Clock, Mail, MapPin, Phone, Star } from '@lucide/svelte';
 	import BookingBar from '#lib/components/BookingBar.svelte';
 	import CountUp from '#lib/components/CountUp.svelte';
 	import RoomCard from '#lib/components/RoomCard.svelte';
-	import { reveal } from '#lib/reveal';
+	import { reveal, parallax } from '#lib/reveal';
 	import { DINING, EXPERIENCES, FAQS, HOTEL, IMAGES, OFFERS, ROOMS, TESTIMONIALS, inr } from '#lib/data/hotel';
+
+	const heroWords = ['A', 'palace', 'stay,', 'quietly', 'perfected.'];
+
+	// Testimonial rotator: one quote at a time, fades every 6s, pauses on hover/focus.
+	let tIndex = $state(0);
+	let tPaused = $state(false);
+
+	$effect(() => {
+		if (tPaused) return;
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+		const id = setInterval(() => {
+			tIndex = (tIndex + 1) % TESTIMONIALS.length;
+		}, 6000);
+		return () => clearInterval(id);
+	});
 </script>
 
 <svelte:head>
@@ -24,25 +39,31 @@
 		class="animate-kenburns absolute inset-0 h-full w-full object-cover"
 	/>
 	<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/15"></div>
+	<div class="hero-vignette absolute inset-0" aria-hidden="true"></div>
 	<div class="relative mx-auto w-full max-w-7xl px-4 pt-32 pb-24 sm:px-6 lg:px-8">
-		<p class="eyebrow !text-gold">Jaipur · Five Star Palace Hotel</p>
+		<p class="section-eyebrow section-eyebrow--light hero-fade">Jaipur · Five Star Palace Hotel</p>
 		<h1 class="font-display mt-4 max-w-3xl text-5xl leading-[1.02] font-semibold sm:text-7xl">
-			A palace stay, quietly perfected.
+			{#each heroWords as word, i (i)}<span class="hero-word" style="--wd: {140 + i * 90}ms">{word}</span>{' '}{/each}
 		</h1>
-		<p class="mt-5 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">
+		<p class="hero-fade mt-5 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg" style="--wd: 640ms">
 			118 rooms and suites behind a 19th-century facade — hand-painted ceilings, a candlelit
 			dining room, and a spa that runs on palace time.
 		</p>
-		<div class="mt-8 flex flex-wrap items-center gap-3">
+		<div class="hero-fade mt-8 flex flex-wrap items-center gap-3" style="--wd: 760ms">
 			<a href="#booking" class="btn-gold">Check Availability <ArrowRight class="h-4 w-4" /></a>
 			<a href="#rooms" class="btn-ghost-light">Explore Rooms</a>
 		</div>
-		<p class="mt-6 flex flex-wrap items-center gap-2 text-sm text-white/85">
+		<p class="hero-fade mt-6 flex flex-wrap items-center gap-2 text-sm text-white/85" style="--wd: 880ms">
 			<span class="flex items-center gap-0.5" aria-label="Rated 4.9 out of 5">
 				{#each Array(5) as _, i (i)}<Star class="h-4 w-4 fill-gold text-gold" />{/each}
 			</span>
 			<span><strong class="font-semibold text-white">4.9/5</strong> · 2,841 verified guest reviews</span>
 		</p>
+	</div>
+	<div class="absolute right-6 bottom-32 hidden flex-col items-center gap-3 lg:flex" aria-hidden="true">
+		<span class="text-[0.65rem] font-semibold tracking-[0.35em] text-white/70 uppercase [writing-mode:vertical-rl]">Scroll</span>
+		<span class="scroll-line"></span>
+		<ChevronDown class="h-4 w-4 text-gold" />
 	</div>
 </section>
 
@@ -57,7 +78,7 @@
 <!-- Welcome -->
 <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8" use:reveal>
 	<div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-		<div class="min-w-0">
+		<div class="min-w-0 overflow-hidden rounded-md" use:parallax>
 			<img
 				src={IMAGES.palace}
 				alt="The palace facade of The Aurelia Palace"
@@ -66,7 +87,7 @@
 			/>
 		</div>
 		<div class="min-w-0">
-			<p class="eyebrow">Welcome to {HOTEL.name}</p>
+			<p class="section-eyebrow">Welcome to {HOTEL.name}</p>
 			<h2 class="section-title mt-3">A palace that still feels like a home.</h2>
 			<p class="mt-5 leading-relaxed text-muted">
 				Built in 1899 as a royal guest house, The Aurelia Palace has spent more than a century
@@ -109,7 +130,7 @@
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 		<div class="flex flex-wrap items-end justify-between gap-4">
 			<div class="min-w-0">
-				<p class="eyebrow">Rooms &amp; Suites</p>
+				<p class="section-eyebrow">Rooms &amp; Suites</p>
 				<h2 class="section-title mt-3">Choose your corner of the palace.</h2>
 			</div>
 			<a href="/rooms" class="btn-ghost">View All Rooms <ArrowRight class="h-4 w-4" /></a>
@@ -127,11 +148,11 @@
 
 <!-- Dining preview -->
 <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8" use:reveal>
-	<p class="eyebrow">Dining</p>
+	<p class="section-eyebrow">Dining</p>
 	<h2 class="section-title mt-3">Three tables, three moods.</h2>
 	<div class="mt-10 grid gap-6 md:grid-cols-3">
 		{#each DINING as restaurant, i (restaurant.slug)}
-			<article class="card min-w-0" use:reveal={{ delay: i * 80 }}>
+			<article class="card img-zoom min-w-0" use:reveal={{ delay: i * 80 }}>
 				<img
 					src={restaurant.image}
 					alt={restaurant.name}
@@ -160,7 +181,7 @@
 <section class="bg-pine py-16 text-white sm:py-24" use:reveal>
 	<div class="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
 		<div class="min-w-0">
-			<p class="eyebrow !text-gold">Amara Spa &amp; Hammam</p>
+			<p class="section-eyebrow section-eyebrow--light">Amara Spa &amp; Hammam</p>
 			<h2 class="font-display mt-3 text-4xl leading-[1.05] font-semibold sm:text-5xl">
 				Slow down. The palace insists.
 			</h2>
@@ -177,7 +198,7 @@
 			</ul>
 			<a href="/book" class="btn-gold mt-8">Reserve a Ritual</a>
 		</div>
-		<div class="min-w-0">
+		<div class="min-w-0 overflow-hidden rounded-md" use:parallax>
 			<img
 				src={IMAGES.spa}
 				alt="Amara Spa treatment suite"
@@ -190,11 +211,11 @@
 
 <!-- Experiences -->
 <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8" use:reveal>
-	<p class="eyebrow">Experiences</p>
+	<p class="section-eyebrow">Experiences</p>
 	<h2 class="section-title mt-3">Jaipur, the palace way.</h2>
 	<div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
 		{#each EXPERIENCES as experience, i (experience.title)}
-			<article class="card min-w-0" use:reveal={{ delay: i * 80 }}>
+			<article class="card img-zoom min-w-0" use:reveal={{ delay: i * 80 }}>
 				<img
 					src={experience.image}
 					alt={experience.title}
@@ -211,23 +232,51 @@
 </section>
 
 <!-- Testimonials -->
-<section class="bg-cream/60 py-16 sm:py-24" use:reveal>
+<section
+	aria-label="Guest testimonials"
+	class="bg-cream/60 py-16 sm:py-24"
+	use:reveal
+	onmouseenter={() => (tPaused = true)}
+	onmouseleave={() => (tPaused = false)}
+	onfocusin={() => (tPaused = true)}
+	onfocusout={() => (tPaused = false)}
+>
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-		<p class="eyebrow">Guest Words</p>
-		<h2 class="section-title mt-3">What guests tell us at checkout.</h2>
-		<div class="mt-10 grid gap-6 md:grid-cols-3">
-			{#each TESTIMONIALS as testimonial, i (testimonial.name)}
-				<figure class="card min-w-0 p-6" use:reveal={{ delay: i * 80 }}>
-					<span class="flex items-center gap-0.5" aria-label="5 out of 5 stars">
-						{#each Array(5) as _, j (j)}<Star class="h-4 w-4 fill-gold text-gold" />{/each}
-					</span>
-					<blockquote class="mt-4 leading-relaxed text-ink/85">“{testimonial.text}”</blockquote>
-					<figcaption class="mt-5 border-t border-line pt-4 text-sm">
-						<span class="block font-semibold text-ink">{testimonial.name}</span>
-						<span class="text-muted">{testimonial.place}</span>
+		<p class="section-eyebrow section-eyebrow--center">Guest Words</p>
+		<h2 class="section-title mt-3 text-center">What guests tell us at checkout.</h2>
+		<div class="mx-auto mt-10 max-w-3xl text-center">
+			<span class="flex items-center justify-center gap-0.5" aria-label="5 out of 5 stars">
+				{#each Array(5) as _, j (j)}<Star class="h-4 w-4 fill-gold text-gold" />{/each}
+			</span>
+			{#key tIndex}
+				<figure class="testimonial-fade">
+					<blockquote class="font-display mt-6 text-2xl leading-snug font-medium text-ink sm:text-3xl">
+						“{TESTIMONIALS[tIndex].text}”
+					</blockquote>
+					<figcaption class="mt-6 text-sm">
+						<span class="block font-semibold text-ink">{TESTIMONIALS[tIndex].name}</span>
+						<span class="text-muted">{TESTIMONIALS[tIndex].place}</span>
 					</figcaption>
 				</figure>
-			{/each}
+			{/key}
+			<div class="mt-8 flex items-center justify-center gap-2" role="tablist" aria-label="Choose testimonial">
+				{#each TESTIMONIALS as _, i (i)}
+					<button
+						type="button"
+						role="tab"
+						aria-selected={i === tIndex}
+						aria-label="Show testimonial {i + 1} of {TESTIMONIALS.length}"
+						onclick={() => (tIndex = i)}
+						class="flex min-h-11 min-w-11 items-center justify-center"
+					>
+						<span
+							class="h-2 rounded-full transition-all duration-300 {i === tIndex
+								? 'w-8 bg-gold'
+								: 'w-2 bg-line hover:bg-gold/60'}"
+						></span>
+					</button>
+				{/each}
+			</div>
 		</div>
 	</div>
 </section>
@@ -244,7 +293,7 @@
 			/>
 		</div>
 		<div class="min-w-0">
-			<p class="eyebrow">Location</p>
+			<p class="section-eyebrow">Location</p>
 			<h2 class="section-title mt-3">In the heart of Jaipur, above the noise.</h2>
 			<p class="mt-5 leading-relaxed text-muted">
 				Ten minutes from Hawa Mahal and Johari Bazaar, twenty-five minutes from Jaipur
@@ -273,7 +322,7 @@
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 		<div class="flex flex-wrap items-end justify-between gap-4">
 			<div class="min-w-0">
-				<p class="eyebrow !text-gold">Offers</p>
+				<p class="section-eyebrow section-eyebrow--light">Offers</p>
 				<h2 class="font-display mt-3 text-3xl font-semibold sm:text-4xl">Book direct, stay more.</h2>
 			</div>
 			<a href="/book" class="btn-gold">See All Offers</a>
@@ -295,7 +344,7 @@
 
 <!-- FAQ teaser -->
 <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24" use:reveal>
-	<p class="eyebrow text-center">Good to Know</p>
+	<p class="section-eyebrow section-eyebrow--center">Good to Know</p>
 	<h2 class="section-title mt-3 text-center">Before you arrive.</h2>
 	<div class="mt-10 space-y-4">
 		{#each FAQS.slice(0, 3) as faq (faq.q)}

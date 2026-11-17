@@ -4,7 +4,7 @@
 </script>
 
 <footer class="border-t border-line bg-pine text-white/85">
-	<div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
+	<div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:grid-cols-2 sm:px-6 lg:grid-cols-5 lg:px-8">
 		<div class="min-w-0">
 			<a href="/" class="flex items-center gap-3">
 				<span class="flex h-10 w-10 items-center justify-center rounded-full border border-gold bg-pine-2 text-gold">
@@ -28,6 +28,15 @@
 			<h3 class="text-sm font-semibold tracking-[0.2em] text-white uppercase">Explore</h3>
 			<ul class="mt-4 space-y-1">
 				{#each [{ href: '/rooms', label: 'Rooms & Suites' }, { href: '/dining', label: 'Dining' }, { href: '/spa-wellness', label: 'Spa & Wellness' }, { href: '/experiences', label: 'Experiences' }, { href: '/gallery', label: 'Gallery' }, { href: '/offers', label: 'Offers' }, { href: '/blog', label: 'Journal' }, { href: '/faq', label: 'FAQ' }] as item (item.href)}
+					<li><a href={item.href} class="inline-flex min-h-8 items-center text-sm text-white/70 transition hover:text-gold">{item.label}</a></li>
+				{/each}
+			</ul>
+		</nav>
+
+		<nav aria-label="More at the palace" class="min-w-0">
+			<h3 class="text-sm font-semibold tracking-[0.2em] text-white uppercase">More</h3>
+			<ul class="mt-4 space-y-1">
+				{#each [{ href: '/amenities', label: 'Amenities' }, { href: '/packages', label: 'Stay Packages' }, { href: '/occasions', label: 'Occasions' }, { href: '/meetings', label: 'Meetings' }, { href: '/concierge', label: 'Concierge' }, { href: '/loyalty', label: 'Aurelia Circle' }, { href: '/reviews', label: 'Guest Reviews' }, { href: '/explore-jaipur', label: 'Explore Jaipur' }, { href: '/gift-cards', label: 'Gift Cards' }, { href: '/press-awards', label: 'Press & Awards' }] as item (item.href)}
 					<li><a href={item.href} class="inline-flex min-h-8 items-center text-sm text-white/70 transition hover:text-gold">{item.label}</a></li>
 				{/each}
 			</ul>

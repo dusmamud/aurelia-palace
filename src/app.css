@@ -22,7 +22,7 @@
 	--color-line: #ddd3c2;
 
 	--animate-marquee: marquee 36s linear infinite;
-	--animate-kenburns: kenburns 24s ease-in-out infinite alternate;
+	--animate-kenburns: kenburns 12s ease-out 1 forwards;
 }
 
 @keyframes marquee {
@@ -31,11 +31,41 @@
 }
 @keyframes kenburns {
 	from { transform: scale(1); }
-	to { transform: scale(1.08); }
+	to { transform: scale(1.06); }
 }
 @keyframes fade-up {
 	from { opacity: 0; transform: translateY(24px); }
 	to { opacity: 1; transform: translateY(0); }
+}
+/* Hero word-by-word entrance: fade + rise, staggered via --wd */
+@keyframes hero-word-in {
+	from { opacity: 0; transform: translateY(0.55em); }
+	to { opacity: 1; transform: translateY(0); }
+}
+@keyframes hero-fade-in {
+	from { opacity: 0; transform: translateY(14px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+/* Scroll-hint line: a gold segment travels down a faint track */
+@keyframes scroll-line {
+	0% { top: -45%; }
+	60%, 100% { top: 110%; }
+}
+/* Sticky book bar CTA: one soft gold ring pulse */
+@keyframes cta-pulse {
+	0% { box-shadow: 0 0 0 0 rgba(185, 151, 91, 0.55); }
+	70% { box-shadow: 0 0 0 14px rgba(185, 151, 91, 0); }
+	100% { box-shadow: 0 0 0 0 rgba(185, 151, 91, 0); }
+}
+/* Testimonial rotator crossfade */
+@keyframes testimonial-in {
+	from { opacity: 0; transform: translateY(10px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+/* Scroll-linked parallax (animation-timeline: view(); JS fallback in reveal.ts) */
+@keyframes parallax-y {
+	from { transform: translateY(-4%) scale(1.12); }
+	to { transform: translateY(4%) scale(1.12); }
 }
 
 html {
@@ -63,6 +93,108 @@ body {
 .motion-ok [data-reveal='left'] { transform: translateX(-22px); }
 .motion-ok [data-reveal='right'] { transform: translateX(22px); }
 .motion-ok [data-reveal].is-in { opacity: 1; transform: none; }
+
+/* --- Hero entrance (gated by .motion-ok; static without it) --- */
+.hero-word { display: inline-block; }
+.motion-ok .hero-word {
+	animation: hero-word-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+	animation-delay: var(--wd, 0ms);
+}
+.motion-ok .hero-fade {
+	animation: hero-fade-in 1s ease-out both;
+	animation-delay: var(--wd, 0ms);
+}
+/* Cinematic vignette over hero imagery */
+.hero-vignette {
+	background: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(0, 0, 0, 0.38) 100%);
+}
+/* Scroll hint: vertical word + travelling gold segment */
+.scroll-line {
+	position: relative;
+	width: 1px;
+	height: 56px;
+	overflow: hidden;
+	background: rgba(255, 255, 255, 0.28);
+}
+.scroll-line::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: -45%;
+	width: 100%;
+	height: 45%;
+	background: #b9975b;
+}
+.motion-ok .scroll-line::after { animation: scroll-line 2.2s ease-in-out infinite; }
+
+/* --- Scroll-linked parallax (CSS path; JS fallback sets inline transform) --- */
+.parallax-scroll {
+	animation: parallax-y linear both;
+	animation-timeline: view();
+	animation-range: entry 0% exit 100%;
+	will-change: transform;
+}
+
+/* --- Testimonial rotator --- */
+.motion-ok .testimonial-fade { animation: testimonial-in 0.8s ease both; }
+
+/* --- Sticky book bar CTA pulse (runs once, when the class is added) --- */
+.cta-pulse-once { animation: cta-pulse 1.8s ease-out 1; }
+
+/* --- Nav underline sweep --- */
+.nav-link { position: relative; }
+.nav-link::after {
+	content: '';
+	position: absolute;
+	left: 0.75rem;
+	right: 0.75rem;
+	bottom: 0.35rem;
+	height: 1px;
+	background: #b9975b;
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav-link:hover::after, .nav-link:focus-visible::after { transform: scaleX(1); }
+
+/* --- Image hover zoom (600ms, scale 1.04) --- */
+.img-zoom { overflow: hidden; }
+.img-zoom img { transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+.img-zoom:hover img, .img-zoom:focus-within img { transform: scale(1.04); }
+
+/* --- Section eyebrow: letterspaced gold small caps, hairline rules --- */
+.section-eyebrow {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.3em;
+	text-transform: uppercase;
+	color: #9a7b45;
+}
+.section-eyebrow::before {
+	content: '';
+	flex: none;
+	width: 2.5rem;
+	height: 1px;
+	background: currentColor;
+	opacity: 0.65;
+}
+.section-eyebrow::after {
+	content: '';
+	flex: 1;
+	height: 1px;
+	background: currentColor;
+	opacity: 0.25;
+}
+.section-eyebrow--center { justify-content: center; }
+.section-eyebrow--center::after {
+	flex: none;
+	width: 2.5rem;
+	opacity: 0.65;
+}
+.section-eyebrow--light { color: #b9975b; }
 
 @media (prefers-reduced-motion: reduce) {
 	*, *::before, *::after {
@@ -104,3 +236,27 @@ body {
 		@apply text-xs font-semibold tracking-[0.3em] text-gold-dark uppercase;
 	}
 }
+
+/* --- Button gold-fill sweep + arrow nudge --- */
+.btn-gold, .btn-pine, .btn-ghost, .btn-ghost-light {
+	position: relative;
+	overflow: hidden;
+}
+.btn-gold > *, .btn-pine > *, .btn-ghost > *, .btn-ghost-light > * { position: relative; z-index: 1; }
+.btn-gold::after, .btn-pine::after, .btn-ghost::after, .btn-ghost-light::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	transform: translateX(-101%);
+	transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-gold::after { background: #9a7b45; }
+.btn-pine::after { background: #1a3d34; }
+.btn-ghost::after { background: rgba(185, 151, 91, 0.16); }
+.btn-ghost-light::after { background: rgba(185, 151, 91, 0.22); }
+.btn-gold:hover::after, .btn-pine:hover::after, .btn-ghost:hover::after, .btn-ghost-light:hover::after,
+.btn-gold:focus-visible::after, .btn-pine:focus-visible::after, .btn-ghost:focus-visible::after, .btn-ghost-light:focus-visible::after {
+	transform: translateX(0);
+}
+.btn-gold svg, .btn-pine svg, .btn-ghost svg, .btn-ghost-light svg { transition: transform 0.3s ease; }
+.btn-gold:hover svg, .btn-pine:hover svg, .btn-ghost:hover svg, .btn-ghost-light:hover svg { transform: translateX(3px); }

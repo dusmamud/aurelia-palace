@@ -62,4 +62,7 @@
 	<p class="mt-8 text-center text-sm text-muted">
 		All offers are mock demo data for client preview. Rates include breakfast; taxes extra as shown at checkout.
 	</p>
+	<p class="mt-3 text-center text-sm">
+		<a href="/packages" class="font-medium text-gold-dark underline decoration-gold/50 underline-offset-4 transition hover:text-gold">See stay packages — room, dining and spa bundled together</a>
+	</p>
 </section>

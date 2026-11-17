@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Clock, Landmark, Mail, MapPin, Navigation, Phone, Plane, TrainFront } from '@lucide/svelte';
+	import { ArrowRight, Clock, Landmark, Mail, MapPin, Navigation, Phone, Plane, TrainFront } from '@lucide/svelte';
 	import PageHero from '#lib/components/PageHero.svelte';
 	import { HOTEL, IMAGES } from '#lib/data/hotel';
 	import { reveal } from '#lib/reveal';
@@ -97,6 +97,7 @@
 				{/each}
 			</ul>
 			<a href="/contact" class="btn-pine mt-6 w-full"><Navigation class="h-4 w-4" /> Ask the Concierge</a>
+			<a href="/explore-jaipur" class="btn-gold mt-3 w-full">Explore Jaipur Guide <ArrowRight class="h-4 w-4" /></a>
 		</div>
 	</div>
 

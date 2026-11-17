@@ -11,7 +11,7 @@
 			src={room.image}
 			alt={room.name}
 			loading="lazy"
-			class="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-105"
+			class="aspect-[4/3] w-full object-cover transition duration-[600ms] ease-out group-hover:scale-[1.04]"
 		/>
 	</a>
 	<div class="p-5">

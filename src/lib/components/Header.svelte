@@ -16,7 +16,7 @@
 
 	$effect(() => {
 		const onScroll = () => {
-			scrolled = window.scrollY > 8;
+			scrolled = window.scrollY > 40;
 		};
 		onScroll();
 		window.addEventListener('scroll', onScroll, { passive: true });
@@ -29,7 +29,11 @@
 		? 'border-line shadow-[0_8px_30px_rgba(28,26,23,0.12)]'
 		: 'border-transparent'}"
 >
-	<div class="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+	<div
+		class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 transition-[height] duration-300 sm:px-6 lg:px-8 {scrolled
+			? 'h-[60px]'
+			: 'h-[72px]'}"
+	>
 		<a href="/" class="flex min-h-11 items-center gap-3" aria-label="The Aurelia Palace — home">
 			<span class="flex h-10 w-10 items-center justify-center rounded-full border border-gold bg-pine text-gold">
 				<Crown class="h-5 w-5" strokeWidth={1.8} />
@@ -44,7 +48,7 @@
 			{#each links as link (link.href)}
 				<a
 					href={link.href}
-					class="rounded-sm px-3 py-2 text-[0.95rem] font-medium text-ink/80 transition hover:bg-cream hover:text-gold-dark"
+					class="nav-link rounded-sm px-3 py-2 text-[0.95rem] font-medium text-ink/80 transition hover:bg-cream hover:text-gold-dark"
 				>
 					{link.label}
 				</a>
@@ -80,6 +84,14 @@
 				</a>
 			{/each}
 			<a href="/gallery" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Gallery</a>
+			<a href="/amenities" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Amenities</a>
+			<a href="/packages" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Stay Packages</a>
+			<a href="/reviews" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Guest Reviews</a>
+			<a href="/concierge" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Concierge</a>
+			<a href="/loyalty" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Aurelia Circle</a>
+			<a href="/explore-jaipur" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Explore Jaipur</a>
+			<a href="/meetings" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Meetings</a>
+			<a href="/gift-cards" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Gift Cards</a>
 			<a href="/about" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">About</a>
 			<a href="/contact" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Contact</a>
 			<a href="/book" onclick={() => (open = false)} class="btn-gold mt-3 w-full">Book Now</a>

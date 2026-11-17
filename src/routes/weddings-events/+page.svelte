@@ -145,6 +145,7 @@
 				</div>
 				<button type="submit" class="btn-gold w-full"><Heart class="h-4 w-4" /> Send Enquiry</button>
 				<p class="text-center text-xs text-muted">Packages from ₹8.5 lakh for weddings and ₹3,500 per delegate for conferences. Final quote after a site visit.</p>
+				<p class="mt-3 text-center text-sm"><a href="/meetings" class="font-medium text-gold-dark underline decoration-gold/50 underline-offset-4 transition hover:text-gold">Planning a corporate event instead? See Meetings & Conferences</a></p>
 			</form>
 		{/if}
 	</div>
