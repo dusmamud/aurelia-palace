@@ -1,6 +1,0 @@
-# Client-only booking pages (prerender=false, served by the SPA fallback)
-# must return 200, not 404, on direct visits / refreshes.
-/book /404.html 200
-/checkout /404.html 200
-/confirmation /404.html 200
-/manage-booking /404.html 200
