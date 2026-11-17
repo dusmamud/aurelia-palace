@@ -8,15 +8,18 @@
 
 	const heroWords = ['A', 'palace', 'stay,', 'quietly', 'perfected.'];
 
-	// Testimonial rotator: one quote at a time, fades every 6s, pauses on hover/focus.
+	// Testimonial rotator: one quote at a time, fades every 6s.
+	// Hover/focus pauses it so a reader can finish the quote — but only
+	// for 12s at a time, so the section never looks frozen forever.
 	let tIndex = $state(0);
-	let tPaused = $state(false);
+	let pausedAt = $state<number | null>(null);
 
 	$effect(() => {
-		if (tPaused) return;
 		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 		const id = setInterval(() => {
-			tIndex = (tIndex + 1) % TESTIMONIALS.length;
+			if (pausedAt === null || Date.now() - pausedAt > 12000) {
+				tIndex = (tIndex + 1) % TESTIMONIALS.length;
+			}
 		}, 6000);
 		return () => clearInterval(id);
 	});
@@ -34,7 +37,7 @@
 <section class="relative flex min-h-[92svh] items-end overflow-hidden bg-pine text-white">
 	<img
 		src={IMAGES.hero}
-		alt="The Aurelia Palace, Jaipur at dusk"
+		alt="Amber Fort above Maota Lake, Jaipur"
 		fetchpriority="high"
 		class="animate-kenburns absolute inset-0 h-full w-full object-cover"
 	/>
@@ -236,10 +239,10 @@
 	aria-label="Guest testimonials"
 	class="bg-cream/60 py-16 sm:py-24"
 	use:reveal
-	onmouseenter={() => (tPaused = true)}
-	onmouseleave={() => (tPaused = false)}
-	onfocusin={() => (tPaused = true)}
-	onfocusout={() => (tPaused = false)}
+	onmouseenter={() => (pausedAt = Date.now())}
+	onmouseleave={() => (pausedAt = null)}
+	onfocusin={() => (pausedAt = Date.now())}
+	onfocusout={() => (pausedAt = null)}
 >
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 		<p class="section-eyebrow section-eyebrow--center">Guest Words</p>

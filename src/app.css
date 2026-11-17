@@ -22,7 +22,7 @@
 	--color-line: #ddd3c2;
 
 	--animate-marquee: marquee 36s linear infinite;
-	--animate-kenburns: kenburns 12s ease-out 1 forwards;
+	--animate-kenburns: kenburns 36s ease-in-out infinite alternate;
 }
 
 @keyframes marquee {
@@ -31,7 +31,7 @@
 }
 @keyframes kenburns {
 	from { transform: scale(1); }
-	to { transform: scale(1.06); }
+	to { transform: scale(1.08); }
 }
 @keyframes fade-up {
 	from { opacity: 0; transform: translateY(24px); }
