@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="theme-color" content="#122e28" />
+		<meta
+			name="description"
+			content="The Aurelia Palace, Jaipur — a 5-star palace hotel with 118 rooms and suites, royal Indian dining, Amara Spa, weddings and meetings."
+		/>
+		<script>
+			// Motion gate: only hide reveal elements when the visitor allows motion.
+			// Runs before paint; no-JS / reduced-motion visitors see everything static.
+			if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+				document.documentElement.classList.add('motion-ok');
+			}
+		</script>
+		%sveltekit.head%
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">%sveltekit.body%</div>
+	</body>
+</html>

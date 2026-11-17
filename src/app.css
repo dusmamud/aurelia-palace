@@ -1,0 +1,106 @@
+@import '@fontsource/cormorant-garamond/500.css';
+@import '@fontsource/cormorant-garamond/600.css';
+@import '@fontsource/cormorant-garamond/700.css';
+@import '@fontsource/jost/400.css';
+@import '@fontsource/jost/500.css';
+@import '@fontsource/jost/600.css';
+@import 'tailwindcss';
+
+@theme {
+	--font-sans: 'Jost', ui-sans-serif, system-ui, sans-serif;
+	--font-display: 'Cormorant Garamond', Georgia, serif;
+
+	--color-ivory: #faf7f1;
+	--color-cream: #f3ede3;
+	--color-sand: #e8ddcb;
+	--color-ink: #1c1a17;
+	--color-pine: #122e28;
+	--color-pine-2: #1a3d34;
+	--color-gold: #b9975b;
+	--color-gold-dark: #9a7b45;
+	--color-muted: #6b6560;
+	--color-line: #ddd3c2;
+
+	--animate-marquee: marquee 36s linear infinite;
+	--animate-kenburns: kenburns 24s ease-in-out infinite alternate;
+}
+
+@keyframes marquee {
+	from { transform: translateX(0); }
+	to { transform: translateX(-50%); }
+}
+@keyframes kenburns {
+	from { transform: scale(1); }
+	to { transform: scale(1.08); }
+}
+@keyframes fade-up {
+	from { opacity: 0; transform: translateY(24px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+html {
+	scroll-behavior: smooth;
+	scroll-padding-top: 96px;
+	overflow-x: clip;
+}
+body {
+	overflow-x: clip;
+	background-color: #faf7f1;
+	color: #1c1a17;
+	font-family: 'Jost', ui-sans-serif, system-ui, sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+::selection { background: #b9975b; color: #fff; }
+
+.motion-ok [data-reveal] {
+	opacity: 0;
+	transform: translateY(22px);
+	transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+	will-change: opacity, transform;
+}
+.motion-ok [data-reveal='fade'] { transform: none; }
+.motion-ok [data-reveal='scale'] { transform: scale(0.96); }
+.motion-ok [data-reveal='left'] { transform: translateX(-22px); }
+.motion-ok [data-reveal='right'] { transform: translateX(22px); }
+.motion-ok [data-reveal].is-in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+	*, *::before, *::after {
+		animation-duration: 0.01ms !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+@layer components {
+	.btn-gold {
+		@apply inline-flex min-h-12 items-center justify-center gap-2 rounded-sm bg-gold px-6 py-3 text-sm font-semibold tracking-[0.14em] text-white uppercase transition hover:bg-gold-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold;
+	}
+	.btn-pine {
+		@apply inline-flex min-h-12 items-center justify-center gap-2 rounded-sm bg-pine px-6 py-3 text-sm font-semibold tracking-[0.14em] text-ivory uppercase transition hover:bg-pine-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine;
+	}
+	.btn-ghost {
+		@apply inline-flex min-h-12 items-center justify-center gap-2 rounded-sm border border-ink/25 bg-transparent px-6 py-3 text-sm font-semibold tracking-[0.14em] text-ink uppercase transition hover:border-gold hover:text-gold-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold;
+	}
+	.btn-ghost-light {
+		@apply inline-flex min-h-12 items-center justify-center gap-2 rounded-sm border border-white/50 bg-transparent px-6 py-3 text-sm font-semibold tracking-[0.14em] text-white uppercase transition hover:border-gold hover:text-gold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold;
+	}
+	.card {
+		@apply overflow-hidden rounded-md border border-line bg-white shadow-[0_2px_16px_rgba(28,26,23,0.06)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(28,26,23,0.14)];
+	}
+	.input {
+		@apply w-full min-h-12 rounded-sm border border-line bg-white px-4 py-3 text-base text-ink placeholder:text-muted focus:border-gold focus:outline-none;
+	}
+	.label {
+		@apply mb-1.5 block text-xs font-semibold tracking-[0.18em] text-muted uppercase;
+	}
+	.chip {
+		@apply inline-flex min-h-8 items-center rounded-full border border-line bg-cream px-3 text-xs font-medium text-ink;
+	}
+	.section-title {
+		@apply font-display text-4xl leading-[1.05] font-semibold text-ink sm:text-5xl;
+	}
+	.eyebrow {
+		@apply text-xs font-semibold tracking-[0.3em] text-gold-dark uppercase;
+	}
+}
