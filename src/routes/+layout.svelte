@@ -14,7 +14,7 @@
 		name: HOTEL.name,
 		description:
 			'A 5-star palace hotel in Jaipur with 118 rooms and suites, royal Indian dining at Saffron, Amara Spa, weddings and meetings.',
-		url: 'https://aurelia-palace.pages.dev/',
+		url: 'https://aureliapalace.pages.dev/',
 		telephone: HOTEL.phone,
 		email: HOTEL.email,
 		starRating: { '@type': 'Rating', ratingValue: '5' },

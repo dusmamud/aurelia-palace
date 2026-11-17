@@ -2,7 +2,7 @@ import { DINING, POSTS, ROOMS } from '#lib/data/hotel';
 
 export const prerender = true;
 
-const BASE = 'https://aurelia-palace.pages.dev';
+const BASE = 'https://aureliapalace.pages.dev';
 
 const staticRoutes = [
 	'/',

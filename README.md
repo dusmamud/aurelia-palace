@@ -31,7 +31,7 @@ Privacy / Terms / Cancellation, Sitemap. Hotel JSON-LD, sitemap.xml (34 URLs).
 ## Deploy
 
 - GitHub repo: `dusmamud/aurelia-palace`
-- Cloudflare Pages project: `aurelia-palace` (create first — Dashboard >
+- Cloudflare Pages project: `aureliapalace` (create first — Dashboard >
   Workers & Pages > Create > Pages > Direct Upload), build `npm run build`,
   output `build/`. Repo secrets `CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID`
   required for the GitHub Actions deploy.
