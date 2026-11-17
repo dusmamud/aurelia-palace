@@ -18,7 +18,7 @@ const img = (id: string, w = 1600) =>
 	`https://images.unsplash.com/photo-${id}?q=80&w=${w}&auto=format&fit=crop`;
 
 export const IMAGES = {
-	hero: img('1566073771259-6a8506099945', 2000),
+	hero: img('1599661046289-e31897846e41', 2000),
 	palace: img('1542314831-068cd1dbfeeb'),
 	pool: img('1571896349842-33c89424de2d'),
 	pool2: img('1540541338287-41700207dee6'),
@@ -26,7 +26,7 @@ export const IMAGES = {
 	spa2: img('1600334129128-685c5582fd35'),
 	wedding: img('1519167758481-83f550bb49b3'),
 	events: img('1511578314322-379afb476865'),
-	heritage: img('1524492412937-b28074a5d7da'),
+	heritage: img('1602643163983-ed0babc39797'),
 	resort: img('1551882547-ff40c63fe5fa'),
 	resort2: img('1445019980597-93fa8acb246c'),
 	resort3: img('1520250497591-112f2f40a3f4')
