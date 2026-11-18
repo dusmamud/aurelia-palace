@@ -200,14 +200,14 @@
 			</h2>
 			<p class="mt-5 leading-relaxed text-white/80">
 				Ayurvedic rituals, a marble hammam and candlelit treatment suites tucked behind the
-				garden wing. The 90-minute signature ritual is the one guests book before they even
+				garden wing. The 60-minute signature ritual is the one guests book before they even
 				arrive.
 			</p>
 			<ul class="mt-6 space-y-3 text-sm text-white/85">
-				<li class="flex items-start gap-2.5"><Check class="mt-0.5 h-4 w-4 shrink-0 text-gold" /> Signature 90-minute ritual from ₹8,500</li>
+				<li class="flex items-start gap-2.5"><Check class="mt-0.5 h-4 w-4 shrink-0 text-gold" /> Signature 60-minute ritual from ₹8,500</li>
 				<li class="flex items-start gap-2.5"><Check class="mt-0.5 h-4 w-4 shrink-0 text-gold" /> Marble hammam, sauna and plunge pool</li>
 				<li class="flex items-start gap-2.5"><Check class="mt-0.5 h-4 w-4 shrink-0 text-gold" /> Couples suites and private garden terrace</li>
-				<li class="flex items-start gap-2.5"><Check class="mt-0.5 h-4 w-4 shrink-0 text-gold" /> Open daily, 9:00 AM – 9:00 PM</li>
+				<li class="flex items-start gap-2.5"><Check class="mt-0.5 h-4 w-4 shrink-0 text-gold" /> Open daily, 10:00 AM – 8:00 PM</li>
 			</ul>
 			<a href="/book" class="btn-gold mt-8">Reserve a Ritual</a>
 		</div>

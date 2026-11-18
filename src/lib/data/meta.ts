@@ -56,7 +56,7 @@ const STATIC: Record<string, { title: string; description: string; image?: strin
 	'/spa-wellness': {
 		title: 'Amara Spa & Wellness — The Aurelia Palace, Jaipur',
 		description:
-			'Amara Spa at The Aurelia Palace, Jaipur — Ayurvedic rituals, marble hammam and candlelit treatment suites. Signature 90-minute ritual from ₹8,500.',
+			'Amara Spa at The Aurelia Palace, Jaipur — Ayurvedic rituals, marble hammam and candlelit treatment suites. Signature 60-minute ritual from ₹8,500.',
 		image: IMAGES.spa
 	},
 	'/experiences': {

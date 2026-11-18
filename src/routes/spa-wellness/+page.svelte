@@ -4,14 +4,7 @@
 	import { reveal } from '#lib/reveal';
 	import { Clock, Waves, Dumbbell, Leaf, Sparkles, Check } from '@lucide/svelte';
 
-	const TREATMENTS = [
-		{ name: 'Amara Signature Ritual', duration: '90 min', price: 8500, note: 'Full-body Ayurvedic massage, scrub and warm-oil head ritual.' },
-		{ name: 'Abhyanga — Four Hands', duration: '60 min', price: 6500, note: 'Two therapists, warm herbal oils, deep relaxation.' },
-		{ name: 'Marble Hammam Ritual', duration: '90 min', price: 7500, note: 'Steam, black-soap cleanse, foam massage and rose rinse.' },
-		{ name: 'Couples Ritual', duration: '90 min', price: 16000, note: 'Side-by-side massages in the couples suite, with champagne tea.' },
-		{ name: 'Deep Tissue Reset', duration: '60 min', price: 6000, note: 'Slow, firm work for travel-tired shoulders and backs.' },
-		{ name: 'Saffron Glow Facial', duration: '60 min', price: 5500, note: 'Saffron, sandalwood and a cooling jade-stone finish.' }
-	];
+import { SPA_TREATMENTS } from '#lib/data/spa-treatments';
 
 	const FACILITIES = [
 		{ icon: Waves, title: 'Temperature-controlled pool', text: 'Outdoor pool, 7 AM – 8 PM, with a shallow section for children.' },
@@ -22,7 +15,7 @@
 
 	let name = $state('');
 	let phone = $state('');
-	let treatment = $state(TREATMENTS[0].name);
+	let treatment = $state(SPA_TREATMENTS[0].name);
 	let date = $state('');
 	let submitted = $state(false);
 	let errors = $state<Record<string, string>>({});
@@ -67,7 +60,7 @@
 				<li class="flex items-start gap-2"><Check class="mt-0.5 h-4 w-4 shrink-0 text-gold-dark" /> Complimentary steam and relaxation lounge with every treatment</li>
 				<li class="flex items-start gap-2"><Check class="mt-0.5 h-4 w-4 shrink-0 text-gold-dark" /> Pregnancy-safe treatments available — please mention it when booking</li>
 			</ul>
-			<p class="mt-6 flex items-center gap-2 text-sm font-semibold text-ink"><Clock class="h-4 w-4 text-gold-dark" /> Open daily, 7:00 AM – 9:00 PM</p>
+			<p class="mt-6 flex items-center gap-2 text-sm font-semibold text-ink"><Clock class="h-4 w-4 text-gold-dark" /> Open daily, 10:00 AM – 8:00 PM</p>
 		</div>
 	</div>
 
@@ -84,13 +77,13 @@
 					</tr>
 				</thead>
 				<tbody class="divide-y divide-line">
-					{#each TREATMENTS as t (t.name)}
+					{#each SPA_TREATMENTS as t (t.slug)}
 						<tr>
 							<td class="px-5 py-4">
 								<span class="font-display block text-lg leading-tight font-semibold text-ink sm:text-xl">{t.name}</span>
-								<span class="mt-0.5 block text-sm text-muted">{t.note}</span>
+								<span class="mt-0.5 block text-sm text-muted">{t.description}</span>
 							</td>
-							<td class="px-5 py-4 text-sm whitespace-nowrap text-ink/85">{t.duration}</td>
+							<td class="px-5 py-4 text-sm whitespace-nowrap text-ink/85">{t.duration} min</td>
 							<td class="font-display px-5 py-4 text-lg font-semibold whitespace-nowrap text-gold-dark">{inr(t.price)}</td>
 						</tr>
 					{/each}
@@ -123,7 +116,7 @@
 				<p class="mt-2 text-sm leading-relaxed text-ink/80">
 					Thank you, {name.trim()}. Your {treatment} on {date} is saved. The spa will call {phone.trim()} shortly to confirm your time slot.
 				</p>
-				<button type="button" class="btn-ghost mt-4 !min-h-11 w-full" onclick={() => { submitted = false; name = ''; phone = ''; date = ''; treatment = TREATMENTS[0].name; }}>Book another treatment</button>
+				<button type="button" class="btn-ghost mt-4 !min-h-11 w-full" onclick={() => { submitted = false; name = ''; phone = ''; date = ''; treatment = SPA_TREATMENTS[0].name; }}>Book another treatment</button>
 			</div>
 		{:else}
 			<form class="mt-6 space-y-4" onsubmit={submit} novalidate>
@@ -140,8 +133,8 @@
 				<div>
 					<label class="label" for="s-treatment">Treatment</label>
 					<select id="s-treatment" class="input" bind:value={treatment}>
-						{#each TREATMENTS as t (t.name)}
-							<option value={t.name}>{t.name} — {t.duration} · {inr(t.price)}</option>
+						{#each SPA_TREATMENTS as t (t.slug)}
+							<option value={t.name}>{t.name} — {t.duration} min · {inr(t.price)}</option>
 						{/each}
 					</select>
 				</div>
@@ -151,7 +144,7 @@
 					{#if errors.date}<p class="mt-1 text-xs text-red-800">{errors.date}</p>{/if}
 				</div>
 				<button type="submit" class="btn-gold w-full"><Sparkles class="h-4 w-4" /> Book a Treatment</button>
-				<p class="text-center text-xs text-muted">Spa hours 7:00 AM – 9:00 PM. Free cancellation up to 6 hours before.</p>
+				<p class="text-center text-xs text-muted">Spa hours 10:00 AM – 8:00 PM. Free cancellation up to 6 hours before.</p>
 			</form>
 		{/if}
 	</div>

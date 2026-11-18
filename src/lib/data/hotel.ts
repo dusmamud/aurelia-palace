@@ -210,7 +210,7 @@ export const DINING = [
 ];
 
 export const EXPERIENCES = [
-	{ title: 'Amara Spa & Hammam', text: 'Ayurvedic rituals, a marble hammam and candlelit treatment suites. 90-minute signature ritual from ₹8,500.', image: img('1544161515-4ab6ce6db874') },
+	{ title: 'Amara Spa & Hammam', text: 'Ayurvedic rituals, a marble hammam and candlelit treatment suites. 60-minute signature ritual from ₹8,500.', image: img('1544161515-4ab6ce6db874') },
 	{ title: 'Heritage Walk of the Old City', text: 'A historian-led morning through Johari Bazaar, Hawa Mahal and hidden havelis, ending with chai at a 200-year-old shop.', image: img('1524492412937-b28074a5d7da') },
 	{ title: 'Royal Cooking Class', text: 'Learn laal maas and ghevar with our chefs in the palace kitchen, then sit down to eat what you made.', image: img('1544025162-d76694265947') },
 	{ title: 'Sunset Pool & High Tea', text: 'High tea by the pool at 4 PM — scones, saffron kulfi and first pick of the loungers as the light turns gold.', image: img('1571896349842-33c89424de2d') }

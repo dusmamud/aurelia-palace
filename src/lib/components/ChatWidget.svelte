@@ -27,7 +27,7 @@
 		if (/spa/.test(s))
 			return {
 				from: 'bot',
-				text: 'Amara Spa is open daily, 10 AM to 8 PM. Treatments start at ₹4,500 — the Signature Abhyanga (60 min, ₹8,500) is the one guests ask for most.',
+				text: 'Amara Spa is open daily, 10 AM to 8 PM. Treatments start at ₹3,500 — the Signature Abhyanga (60 min, ₹8,500) is the one guests ask for most.',
 				href: '/spa/book',
 				linkLabel: 'Book a treatment'
 			};
