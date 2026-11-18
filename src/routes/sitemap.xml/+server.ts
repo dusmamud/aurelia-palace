@@ -46,7 +46,22 @@ const staticRoutes = [
 	'/blog',
 	'/careers',
 	'/cancellation-policy',
-	'/book'
+	'/book',
+	'/rooms/compare',
+	'/dining/reserve',
+	'/spa/book',
+	'/family',
+	'/honeymoon',
+	'/pet-friendly',
+	'/long-stays',
+	'/business',
+	'/sustainability',
+	'/accessibility',
+	'/wellness',
+	'/afternoon-tea',
+	'/whats-on',
+	'/transfers',
+	'/travel-agents'
 ];
 
 const routes = [

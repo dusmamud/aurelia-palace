@@ -1,6 +1,25 @@
 <script lang="ts">
-	import { Mail, MapPin, Phone, Crown, Star } from '@lucide/svelte';
+	import { Mail, MapPin, Phone, Crown, Star, Send } from '@lucide/svelte';
 	import { HOTEL, ROOMS, DINING } from '#lib/data/hotel';
+
+	let newsEmail = $state('');
+	let newsDone = $state(false);
+	let newsError = $state('');
+
+	function subscribe(e: Event) {
+		e.preventDefault();
+		newsError = '';
+		if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newsEmail.trim())) {
+			newsError = 'Please enter a valid email address.';
+			return;
+		}
+		try {
+			localStorage.setItem('aurelia-newsletter', newsEmail.trim());
+		} catch {
+			// Private mode — the signup still confirms; nothing breaks.
+		}
+		newsDone = true;
+	}
 </script>
 
 <footer class="border-t border-line bg-pine text-white/85">
@@ -22,12 +41,37 @@
 				{#each Array(5) as _, i (i)}<Star class="h-4 w-4 fill-gold text-gold" />{/each}
 				<span class="ml-1 text-white/80">{HOTEL.rating}/5 · {HOTEL.reviewsCount.toLocaleString('en-IN')} guest reviews</span>
 			</p>
+			<div class="mt-6">
+				<p class="text-sm font-semibold tracking-[0.18em] text-white uppercase">Join the Aurelia list</p>
+				<p class="mt-1.5 text-xs leading-relaxed text-white/60">Seasonal offers and palace stories, once a month. No spam.</p>
+				{#if newsDone}
+					<p class="mt-3 rounded-sm border border-gold/40 bg-gold/10 px-3 py-2.5 text-sm text-gold">
+						Welcome to the list — your code <strong>AURELIA10</strong> is saved for your next direct booking.
+					</p>
+				{:else}
+					<form class="mt-3 flex gap-2" onsubmit={subscribe} novalidate>
+						<label for="footer-newsletter" class="sr-only">Email address</label>
+						<input
+							id="footer-newsletter"
+							type="email"
+							bind:value={newsEmail}
+							placeholder="Your email address"
+							autocomplete="email"
+							class="min-w-0 flex-1 rounded-sm border border-white/20 bg-white/10 px-3 py-2.5 text-sm text-white outline-none placeholder:text-white/50 focus:border-gold"
+						/>
+						<button type="submit" aria-label="Subscribe to the Aurelia list" class="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm bg-gold text-white transition hover:bg-gold-dark">
+							<Send class="h-4 w-4" />
+						</button>
+					</form>
+					{#if newsError}<p class="mt-2 text-xs text-red-300">{newsError}</p>{/if}
+				{/if}
+			</div>
 		</div>
 
 		<nav aria-label="Explore" class="min-w-0">
 			<h3 class="text-sm font-semibold tracking-[0.2em] text-white uppercase">Explore</h3>
 			<ul class="mt-4 space-y-1">
-				{#each [{ href: '/rooms', label: 'Rooms & Suites' }, { href: '/dining', label: 'Dining' }, { href: '/spa-wellness', label: 'Spa & Wellness' }, { href: '/experiences', label: 'Experiences' }, { href: '/gallery', label: 'Gallery' }, { href: '/offers', label: 'Offers' }, { href: '/blog', label: 'Journal' }, { href: '/faq', label: 'FAQ' }] as item (item.href)}
+				{#each [{ href: '/rooms', label: 'Rooms & Suites' }, { href: '/rooms/compare', label: 'Compare Rooms' }, { href: '/dining', label: 'Dining' }, { href: '/dining/reserve', label: 'Reserve a Table' }, { href: '/spa-wellness', label: 'Spa & Wellness' }, { href: '/experiences', label: 'Experiences' }, { href: '/gallery', label: 'Gallery' }, { href: '/offers', label: 'Offers' }, { href: '/whats-on', label: 'What’s On' }, { href: '/blog', label: 'Journal' }, { href: '/faq', label: 'FAQ' }] as item (item.href)}
 					<li><a href={item.href} class="inline-flex min-h-8 items-center text-sm text-white/70 transition hover:text-gold">{item.label}</a></li>
 				{/each}
 			</ul>
@@ -36,7 +80,7 @@
 		<nav aria-label="More at the palace" class="min-w-0">
 			<h3 class="text-sm font-semibold tracking-[0.2em] text-white uppercase">More</h3>
 			<ul class="mt-4 space-y-1">
-				{#each [{ href: '/amenities', label: 'Amenities' }, { href: '/packages', label: 'Stay Packages' }, { href: '/occasions', label: 'Occasions' }, { href: '/meetings', label: 'Meetings' }, { href: '/concierge', label: 'Concierge' }, { href: '/loyalty', label: 'Aurelia Circle' }, { href: '/reviews', label: 'Guest Reviews' }, { href: '/explore-jaipur', label: 'Explore Jaipur' }, { href: '/gift-cards', label: 'Gift Cards' }, { href: '/press-awards', label: 'Press & Awards' }] as item (item.href)}
+				{#each [{ href: '/amenities', label: 'Amenities' }, { href: '/packages', label: 'Stay Packages' }, { href: '/family', label: 'Family Stays' }, { href: '/honeymoon', label: 'Honeymoon' }, { href: '/pet-friendly', label: 'Pet-Friendly Stays' }, { href: '/wellness', label: 'Wellness Retreats' }, { href: '/occasions', label: 'Occasions' }, { href: '/meetings', label: 'Meetings' }, { href: '/concierge', label: 'Concierge' }, { href: '/loyalty', label: 'Aurelia Circle' }, { href: '/reviews', label: 'Guest Reviews' }, { href: '/explore-jaipur', label: 'Explore Jaipur' }, { href: '/transfers', label: 'Airport Transfers' }, { href: '/sustainability', label: 'Sustainability' }, { href: '/accessibility', label: 'Accessibility' }, { href: '/gift-cards', label: 'Gift Cards' }, { href: '/press-awards', label: 'Press & Awards' }] as item (item.href)}
 					<li><a href={item.href} class="inline-flex min-h-8 items-center text-sm text-white/70 transition hover:text-gold">{item.label}</a></li>
 				{/each}
 			</ul>

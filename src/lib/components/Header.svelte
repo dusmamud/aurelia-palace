@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Menu, X, Phone, Crown } from '@lucide/svelte';
 	import { HOTEL } from '#lib/data/hotel';
+	import SiteSearch from '#lib/components/SiteSearch.svelte';
 
 	const links = [
 		{ href: '/rooms', label: 'Rooms & Suites' },
@@ -56,6 +57,7 @@
 		</nav>
 
 		<div class="flex items-center gap-2">
+			<SiteSearch />
 			<a href="tel:{HOTEL.phoneHref}" class="hidden min-h-11 items-center gap-2 rounded-sm px-3 text-sm font-medium text-ink/80 transition hover:text-gold-dark md:inline-flex">
 				<Phone class="h-4 w-4" /> {HOTEL.phone}
 			</a>
@@ -92,6 +94,21 @@
 			<a href="/explore-jaipur" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Explore Jaipur</a>
 			<a href="/meetings" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Meetings</a>
 			<a href="/gift-cards" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Gift Cards</a>
+			<a href="/rooms/compare" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Compare Rooms</a>
+			<a href="/dining/reserve" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Reserve a Table</a>
+			<a href="/spa/book" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Book a Spa Treatment</a>
+			<a href="/afternoon-tea" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Afternoon Tea</a>
+			<a href="/wellness" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Wellness Retreats</a>
+			<a href="/family" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Family Stays</a>
+			<a href="/honeymoon" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Honeymoon</a>
+			<a href="/pet-friendly" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Pet-Friendly Stays</a>
+			<a href="/long-stays" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Long Stays</a>
+			<a href="/business" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Corporate Stays</a>
+			<a href="/whats-on" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">What’s On</a>
+			<a href="/transfers" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Airport Transfers</a>
+			<a href="/sustainability" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Sustainability</a>
+			<a href="/accessibility" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Accessibility</a>
+			<a href="/travel-agents" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Travel Agents</a>
 			<a href="/about" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">About</a>
 			<a href="/contact" onclick={() => (open = false)} class="flex min-h-12 items-center rounded-sm px-3 text-base font-medium text-ink transition hover:bg-cream">Contact</a>
 			<a href="/book" onclick={() => (open = false)} class="btn-gold mt-3 w-full">Book Now</a>

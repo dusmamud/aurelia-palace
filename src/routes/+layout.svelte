@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
+	import { onNavigate } from '$app/navigation';
+	import Lenis from 'lenis';
 	import { HOTEL, IMAGES } from '#lib/data/hotel';
 	import { metaFor, ogImage, SITE_URL, breadcrumbsFor } from '#lib/data/meta';
 	// Font preloads: the hero headline reflows when Cormorant/Jost swap in
@@ -13,10 +15,34 @@
 	import Header from '#lib/components/Header.svelte';
 	import Footer from '#lib/components/Footer.svelte';
 	import StickyBookBar from '#lib/components/StickyBookBar.svelte';
+	import BackToTop from '#lib/components/BackToTop.svelte';
+	import ChatWidget from '#lib/components/ChatWidget.svelte';
 	import '../app.css';
 	import type { LayoutProps } from './$types';
 
 	let { children }: LayoutProps = $props();
+
+	// Lenis smooth scroll (the modern standard, pairs with GSAP ScrollTrigger).
+	// Native window scrolling is preserved, so the sticky header and the
+	// CSS view-timeline parallax keep working. Disabled entirely under
+	// prefers-reduced-motion.
+	$effect(() => {
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+		const lenis = new Lenis({ autoRaf: true, lerp: 0.1 });
+		return () => lenis.destroy();
+	});
+
+	// View Transitions API: soft crossfade between pages (0.28s, see app.css).
+	// Falls back to a normal navigation where the API is absent.
+	onNavigate((navigation) => {
+		if (!document.startViewTransition) return;
+		return new Promise<void>((resolve) => {
+			document.startViewTransition(async () => {
+				resolve();
+				await navigation.complete;
+			});
+		});
+	});
 
 	// Per-page meta from the single source of truth (src/lib/data/meta.ts).
 	// Null on unknown paths — error pages render their own <title> and no
@@ -132,3 +158,5 @@
 <Footer />
 <div class="h-16 lg:hidden" aria-hidden="true"></div>
 <StickyBookBar />
+<BackToTop />
+<ChatWidget />

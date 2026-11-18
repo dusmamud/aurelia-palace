@@ -260,3 +260,17 @@ body {
 }
 .btn-gold svg, .btn-pine svg, .btn-ghost svg, .btn-ghost-light svg { transition: transform 0.3s ease; }
 .btn-gold:hover svg, .btn-pine:hover svg, .btn-ghost:hover svg, .btn-ghost-light:hover svg { transform: translateX(3px); }
+
+/* View Transitions API: soft crossfade between pages (wired in +layout.svelte
+   via onNavigate). Short and eased so navigation feels instant, not floaty. */
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation-duration: 0.28s;
+	animation-timing-function: ease;
+}
+@media (prefers-reduced-motion: reduce) {
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation: none;
+	}
+}

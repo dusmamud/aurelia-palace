@@ -219,6 +219,81 @@ const STATIC: Record<string, { title: string; description: string; image?: strin
 		description:
 			'Look up, view or cancel your booking at The Aurelia Palace, Jaipur with your booking reference and email or phone.',
 		image: IMAGES.resort
+	},
+	'/rooms/compare': {
+		title: 'Compare Rooms | The Aurelia Palace, Jaipur',
+		description:
+			'Compare up to three rooms side by side — size, occupancy, bed, view, price and amenities — and pick the perfect palace room in Jaipur.'
+	},
+	'/dining/reserve': {
+		title: 'Reserve a Table | The Aurelia Palace, Jaipur',
+		description:
+			'Book a table at Saffron, The Courtyard or Zoya rooftop bar at The Aurelia Palace, Jaipur. Choose your date, time and party size in under a minute.'
+	},
+	'/spa/book': {
+		title: 'Book a Spa Treatment | The Aurelia Palace, Jaipur',
+		description:
+			'Book an Ayurvedic ritual, hammam, facial or couples treatment at Amara Spa, The Aurelia Palace Jaipur. Choose your treatment, date and time.'
+	},
+	'/family': {
+		title: 'Family Stays at The Aurelia Palace, Jaipur',
+		description:
+			'Family stays at The Aurelia Palace, Jaipur — connecting rooms, a kids club for ages 4–12, kids menus, babysitting and family packages from ₹54,999.'
+	},
+	'/honeymoon': {
+		title: 'Honeymoon in Jaipur | The Aurelia Palace',
+		description:
+			'Honeymoon packages at The Aurelia Palace, Jaipur — suites, private candle-lit dinners, couples spa rituals and flower baths, from ₹68,000 for two nights.'
+	},
+	'/pet-friendly': {
+		title: 'Pet-Friendly Hotel in Jaipur | The Aurelia Palace',
+		description:
+			'Pet-friendly stays at The Aurelia Palace, Jaipur — dogs and cats welcome for ₹1,500 per stay, with pet beds, a welcome pack and garden walks nearby.'
+	},
+	'/long-stays': {
+		title: 'Long Stays in Jaipur | The Aurelia Palace',
+		description:
+			'Long stays at The Aurelia Palace, Jaipur — save 10% on 7 nights, 15% on 14 nights and 25% on 30 nights, with kitchenette suites and weekly laundry.'
+	},
+	'/business': {
+		title: 'Corporate Stays in Jaipur | The Aurelia Palace',
+		description:
+			'Corporate stays at The Aurelia Palace, Jaipur — 15% off with CORP15, early breakfast, 2 PM checkout, 1 Gbps Wi-Fi and meeting rooms on site.'
+	},
+	'/sustainability': {
+		title: 'Sustainability at The Aurelia Palace, Jaipur',
+		description:
+			'Solar hot water, local sourcing, zero single-use plastic and 120 artisans supported — how The Aurelia Palace treads lightly on Jaipur.'
+	},
+	'/accessibility': {
+		title: 'Accessibility at The Aurelia Palace, Jaipur',
+		description:
+			'Step-free routes, four accessible rooms, roll-in showers, hearing and visual assistance, and service animals welcome at The Aurelia Palace.'
+	},
+	'/wellness': {
+		title: 'Wellness Retreats at The Aurelia Palace, Jaipur',
+		description:
+			'3, 5 and 7-day Ayurvedic wellness retreats in Jaipur — sunrise yoga, daily spa rituals, guided meditation and personalised meals.'
+	},
+	'/afternoon-tea': {
+		title: 'Afternoon Tea at The Aurelia Palace, Jaipur',
+		description:
+			'Palace afternoon tea at The Courtyard, 3:30–5:30 PM daily — savouries, warm scones, desserts and eighteen teas, ₹2,200 per person.'
+	},
+	'/whats-on': {
+		title: 'What’s On at The Aurelia Palace, Jaipur',
+		description:
+			'Folk music, heritage walks, wine dinners, workshops and the New Year gala — events at The Aurelia Palace, December 2026 to February 2027.'
+	},
+	'/transfers': {
+		title: 'Airport Transfers | The Aurelia Palace, Jaipur',
+		description:
+			'Chauffeur airport and railway transfers in Jaipur — sedan ₹1,800, SUV ₹2,800 or a vintage car ₹6,500, one-way, with meet-and-greet.'
+	},
+	'/travel-agents': {
+		title: 'Travel Trade | The Aurelia Palace, Jaipur',
+		description:
+			'Travel agents: 10% commission, net rates and dedicated support at The Aurelia Palace, Jaipur. Request trade access today.'
 	}
 };
 
@@ -319,7 +394,23 @@ const CRUMB_LABELS: Record<string, string> = {
 	'privacy-policy': 'Privacy Policy',
 	terms: 'Terms & Conditions',
 	'cancellation-policy': 'Cancellation Policy',
-	sitemap: 'Sitemap'
+	sitemap: 'Sitemap',
+	spa: 'Amara Spa',
+	compare: 'Compare Rooms',
+	reserve: 'Reserve a Table',
+	book: 'Book a Spa Treatment',
+	family: 'Family Stays',
+	honeymoon: 'Honeymoon',
+	'pet-friendly': 'Pet-Friendly Stays',
+	'long-stays': 'Long Stays',
+	business: 'Corporate Stays',
+	sustainability: 'Sustainability',
+	accessibility: 'Accessibility',
+	wellness: 'Wellness Retreats',
+	'afternoon-tea': 'Afternoon Tea',
+	'whats-on': 'What’s On',
+	transfers: 'Airport Transfers',
+	'travel-agents': 'Travel Trade'
 };
 
 /**
