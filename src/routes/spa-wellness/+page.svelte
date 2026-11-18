@@ -144,7 +144,7 @@ import { SPA_TREATMENTS } from '#lib/data/spa-treatments';
 					{#if errors.date}<p class="mt-1 text-xs text-red-800">{errors.date}</p>{/if}
 				</div>
 				<button type="submit" class="btn-gold w-full"><Sparkles class="h-4 w-4" /> Book a Treatment</button>
-				<p class="text-center text-xs text-muted">Spa hours 10:00 AM – 8:00 PM. Free cancellation up to 6 hours before.</p>
+				<p class="text-center text-xs text-muted">Spa hours 10:00 AM – 8:00 PM. Free cancellation up to 12 hours before.</p>
 			</form>
 		{/if}
 	</div>
