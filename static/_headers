@@ -3,6 +3,13 @@
 # CSP is scoped to what this site actually uses: same-origin scripts/styles,
 # self-hosted fonts, Unsplash images only. style-src needs 'unsafe-inline'
 # because Tailwind's CSS is inlined into <style> (inlineStyleThreshold).
+# script-src ALSO needs 'unsafe-inline': SvelteKit's hydration bootstrap
+# (__sveltekit_<hash> = { base, version }) is an inline <script> the
+# framework emits on every prerendered page, and the motion gate in the
+# layout head is an inline script that must run before paint. A nonce
+# would need a server to inject it per request, which a static Pages site
+# does not have — so 'unsafe-inline' is the honest choice here, and the
+# CSP still blocks objects, frames, off-origin images/fonts/fetches.
 # No Trusted Types directive on purpose: SvelteKit injects the JSON-LD
 # structured data via {@html}, which requires innerHTML.
 /*
@@ -11,4 +18,4 @@
   X-Content-Type-Options: nosniff
   Cross-Origin-Opener-Policy: same-origin
   Referrer-Policy: strict-origin-when-cross-origin
-  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https://images.unsplash.com data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' https://images.unsplash.com data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
