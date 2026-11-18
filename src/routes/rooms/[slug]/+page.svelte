@@ -25,6 +25,13 @@
 			'@id': `${SITE_URL}/rooms/${room.slug}#room`,
 			name: room.name,
 			description: room.description,
+			// Rich Results flagged the missing global identifier (gtin/brand)
+			// on the Merchant listings item. A hotel room has no GTIN; the
+			// brand is the hotel itself. The other two optional warnings
+			// (hasMerchantReturnPolicy, shippingDetails) do not apply to a
+			// stay — a room is not shipped, and cancellation terms live on
+			// the /cancellation-policy page, not in an Offer.
+			brand: { '@type': 'Brand', name: HOTEL.name },
 			image: room.gallery,
 			occupancy: { '@type': 'QuantitativeValue', maxValue: room.occupancy },
 			bed: room.bed,
