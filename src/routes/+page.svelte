@@ -61,7 +61,7 @@
 			<a href="#rooms" class="btn-ghost-light">Explore Rooms</a>
 		</div>
 		<p class="hero-fade mt-6 flex flex-wrap items-center gap-2 text-sm text-white/85" style="--wd: 880ms">
-			<span class="flex items-center gap-0.5" aria-label="Rated 4.9 out of 5">
+			<span class="flex items-center gap-0.5" role="img" aria-label="Rated 4.9 out of 5">
 				{#each Array(5) as _, i (i)}<Star class="h-4 w-4 fill-gold text-gold" />{/each}
 			</span>
 			<span><strong class="font-semibold text-white">4.9/5</strong> · 2,841 verified guest reviews</span>
@@ -264,7 +264,7 @@
 		<p class="section-eyebrow section-eyebrow--center">Guest Words</p>
 		<h2 class="section-title mt-3 text-center">What guests tell us at checkout.</h2>
 		<div class="mx-auto mt-10 max-w-3xl text-center">
-			<span class="flex items-center justify-center gap-0.5" aria-label="5 out of 5 stars">
+			<span class="flex items-center justify-center gap-0.5" role="img" aria-label="5 out of 5 stars">
 				{#each Array(5) as _, j (j)}<Star class="h-4 w-4 fill-gold text-gold" />{/each}
 			</span>
 			{#key tIndex}

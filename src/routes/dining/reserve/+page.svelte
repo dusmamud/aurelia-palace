@@ -175,7 +175,7 @@
 							<button
 								type="button"
 								class="min-h-11 rounded-sm border px-4 text-sm font-semibold {time === slot
-									? 'border-gold bg-gold text-white'
+									? 'border-gold-dark bg-gold-dark text-white'
 									: 'border-line bg-white text-ink'}"
 								onclick={() => (time = slot)}
 								aria-pressed={time === slot}>{slot}</button
@@ -188,7 +188,7 @@
 							<button
 								type="button"
 								class="min-h-11 rounded-sm border px-4 text-sm font-semibold {time === slot
-									? 'border-gold bg-gold text-white'
+									? 'border-gold-dark bg-gold-dark text-white'
 									: 'border-line bg-white text-ink'}"
 								onclick={() => (time = slot)}
 								aria-pressed={time === slot}>{slot}</button

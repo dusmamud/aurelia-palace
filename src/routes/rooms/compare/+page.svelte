@@ -119,7 +119,7 @@
 								/>
 								<span class="font-display mt-3 block text-lg leading-tight font-semibold">{room.name}</span>
 								<a href="/book?room={room.slug}" class="btn-gold mt-3 inline-flex min-h-11 items-center"
-									>Check availability <ArrowRight class="h-4 w-4" /></a
+									>Check availability <span class="sr-only">for {room.name}</span> <ArrowRight class="h-4 w-4" /></a
 								>
 							</th>
 						{/each}

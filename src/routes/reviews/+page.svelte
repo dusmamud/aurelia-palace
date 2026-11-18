@@ -47,7 +47,7 @@
 	<div class="grid gap-6 rounded-md border border-line bg-white p-6 sm:p-8 lg:grid-cols-[auto_1fr_auto] lg:items-center" use:reveal>
 		<div class="text-center lg:text-left">
 			<p class="font-display text-6xl leading-none font-semibold text-pine sm:text-7xl">{RATING_SUMMARY.overall}</p>
-			<div class="mt-2 flex justify-center gap-0.5 lg:justify-start" aria-label="Rated 4.9 out of 5">
+			<div class="mt-2 flex justify-center gap-0.5 lg:justify-start" role="img" aria-label="Rated 4.9 out of 5">
 				{#each [1, 2, 3, 4, 5] as s (s)}
 					<Star class="h-5 w-5 fill-gold text-gold" />
 				{/each}
@@ -97,7 +97,7 @@
 		{#each filtered as r, i (r.name + r.date)}
 			<article class="card flex flex-col p-5 sm:p-6" use:reveal={{ delay: (i % 2) * 80 }}>
 				<div class="flex items-center justify-between gap-3">
-					<div class="flex gap-0.5" aria-label="Rated {r.rating} out of 5">
+					<div class="flex gap-0.5" role="img" aria-label="Rated {r.rating} out of 5">
 						{#each [1, 2, 3, 4, 5] as s (s)}
 							<Star class="h-4 w-4 {s <= r.rating ? 'fill-gold text-gold' : 'text-line'}" />
 						{/each}

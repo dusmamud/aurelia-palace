@@ -35,8 +35,8 @@
 			<li class="flex items-center gap-1.5"><Eye class="h-3.5 w-3.5 text-gold-dark" /> {room.view}</li>
 		</ul>
 		<div class="mt-5 flex gap-2">
-			<a href="/rooms/{room.slug}" class="btn-pine flex-1 !min-h-11 !px-4">View Room</a>
-			<a href="/book?room={room.slug}" class="btn-gold flex-1 !min-h-11 !px-4">Book This Room</a>
+			<a href="/rooms/{room.slug}" class="btn-pine flex-1 !min-h-11 !px-4">View Room <span class="sr-only">— {room.name}</span></a>
+			<a href="/book?room={room.slug}" class="btn-gold flex-1 !min-h-11 !px-4">Book This Room <span class="sr-only">— {room.name}</span></a>
 		</div>
 	</div>
 </article>

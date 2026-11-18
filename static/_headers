@@ -1,0 +1,14 @@
+# Cloudflare Pages headers for The Aurelia Palace (static site, no backend).
+# Clears the PageSpeed "Trust and Safety" items (HSTS, frame control, CSP).
+# CSP is scoped to what this site actually uses: same-origin scripts/styles,
+# self-hosted fonts, Unsplash images only. style-src needs 'unsafe-inline'
+# because Tailwind's CSS is inlined into <style> (inlineStyleThreshold).
+# No Trusted Types directive on purpose: SvelteKit injects the JSON-LD
+# structured data via {@html}, which requires innerHTML.
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Cross-Origin-Opener-Policy: same-origin
+  Referrer-Policy: strict-origin-when-cross-origin
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https://images.unsplash.com data:; font-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
