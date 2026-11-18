@@ -3,7 +3,8 @@
 	import BookingBar from '#lib/components/BookingBar.svelte';
 	import RoomCard from '#lib/components/RoomCard.svelte';
 	import { reveal } from '#lib/reveal';
-	import { HOTEL, ROOMS, inr } from '#lib/data/hotel';
+	import { HOTEL, ROOMS, inr, usrcset } from '#lib/data/hotel';
+	import { SITE_URL } from '#lib/data/meta';
 
 	let { data } = $props();
 	let room = $derived(data.room);
@@ -11,29 +12,36 @@
 	let mainImage = $derived(room.gallery[active]);
 	let similar = $derived(ROOMS.filter((r) => r.slug !== room.slug).slice(0, 3));
 
+	// HotelRoom is NOT a subclass of Product, so `offers` on a plain
+	// HotelRoom is invalid (schema.org validator warned about it). The
+	// schema.org hotels guide's own pattern is a Multi-Typed Entity: the
+	// room is typed as both HotelRoom and Product, which makes `offers`
+	// valid; the room points back to the hotel with `containedInPlace`
+	// (the old `isPartOf` was a CreativeWork property — also invalid).
 	let jsonLd = $derived(
 		JSON.stringify({
 			'@context': 'https://schema.org',
-			'@type': 'HotelRoom',
+			'@type': ['HotelRoom', 'Product'],
+			'@id': `${SITE_URL}/rooms/${room.slug}#room`,
 			name: room.name,
 			description: room.description,
+			image: room.gallery,
 			occupancy: { '@type': 'QuantitativeValue', maxValue: room.occupancy },
 			bed: room.bed,
 			floorSize: { '@type': 'QuantitativeValue', value: room.size, unitCode: 'MTK' },
+			containedInPlace: { '@type': 'Hotel', '@id': `${SITE_URL}/#hotel` },
 			offers: {
 				'@type': 'Offer',
+				url: `${SITE_URL}/book?room=${room.slug}`,
 				price: room.price,
 				priceCurrency: 'INR',
 				availability: 'https://schema.org/InStock'
-			},
-			isPartOf: { '@type': 'Hotel', name: HOTEL.name, address: HOTEL.address }
+			}
 		})
 	);
 </script>
 
 <svelte:head>
-	<title>{room.name} · {HOTEL.name}, {HOTEL.city}</title>
-	<meta name="description" content={room.description} />
 	{@html `<script type="application/ld+json">${jsonLd}</script>`}
 </svelte:head>
 
@@ -48,7 +56,10 @@
 			<div class="relative overflow-hidden rounded-md">
 				<img
 					src={mainImage}
+					srcset={usrcset(mainImage)}
+					sizes="(max-width: 1024px) 100vw, 50vw"
 					alt="{room.name} — photo {active + 1} of {room.gallery.length}"
+					decoding="async"
 					class="aspect-[4/3] w-full object-cover"
 				/>
 				<span class="absolute right-3 bottom-3 rounded-full bg-black/70 px-3 py-1 text-xs font-semibold text-white">
@@ -66,7 +77,7 @@
 							? 'ring-2 ring-gold ring-offset-2'
 							: 'opacity-75 hover:opacity-100'}"
 					>
-						<img src={src} alt="" loading="lazy" class="aspect-[4/3] w-full object-cover" />
+						<img src={src} srcset={usrcset(src, [160, 320])} sizes="80px" alt="" loading="lazy" decoding="async" class="aspect-[4/3] w-full object-cover" />
 					</button>
 				{/each}
 			</div>

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PageHero from '#lib/components/PageHero.svelte';
-	import { EXPERIENCES, IMAGES, inr } from '#lib/data/hotel';
+	import { EXPERIENCES, IMAGES, inr, usrcset } from '#lib/data/hotel';
 	import { reveal } from '#lib/reveal';
 	import { Clock, ArrowRight, ConciergeBell } from '@lucide/svelte';
 
@@ -26,8 +26,11 @@
 			<article class="grid items-center gap-6 lg:grid-cols-2 lg:gap-12" use:reveal>
 				<img
 					src={exp.image}
+					srcset={usrcset(exp.image)}
+					sizes="(max-width: 1024px) 100vw, 50vw"
 					alt={exp.title}
 					loading="lazy"
+					decoding="async"
 					class="aspect-[4/3] w-full rounded-md object-cover {i % 2 === 1 ? 'lg:order-2' : ''}"
 				/>
 				<div class="min-w-0 {i % 2 === 1 ? 'lg:order-1' : ''}">

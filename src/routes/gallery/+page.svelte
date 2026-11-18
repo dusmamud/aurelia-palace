@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PageHero from '#lib/components/PageHero.svelte';
-	import { GALLERY, IMAGES } from '#lib/data/hotel';
+	import { GALLERY, IMAGES, usrcset } from '#lib/data/hotel';
 	import { reveal } from '#lib/reveal';
 	import { X, ChevronLeft, ChevronRight } from '@lucide/svelte';
 
@@ -47,7 +47,7 @@
 				onclick={() => open(i)}
 				aria-label="View {item.label} full-screen"
 			>
-				<img src={item.src} alt={item.label} loading="lazy" class="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-105" />
+				<img src={item.src} srcset={usrcset(item.src)} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" alt={item.label} loading="lazy" decoding="async" class="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-105" />
 				<span class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-3 pt-8 pb-3 text-sm font-medium text-white">{item.label}</span>
 			</button>
 		{/each}
@@ -84,7 +84,7 @@
 			<ChevronRight class="h-6 w-6" />
 		</button>
 		<figure class="max-w-4xl">
-			<img src={GALLERY[selected].src} alt={GALLERY[selected].label} class="max-h-[78vh] w-full rounded-md object-contain" />
+			<img src={GALLERY[selected].src} srcset={usrcset(GALLERY[selected].src, [800, 1200, 1600, 2000])} sizes="100vw" alt={GALLERY[selected].label} decoding="async" class="max-h-[78vh] w-full rounded-md object-contain" />
 			<figcaption class="mt-4 flex items-center justify-between gap-4 text-sm text-white/85">
 				<span>{GALLERY[selected].label}</span>
 				<span class="shrink-0 tabular-nums">{selected + 1} / {GALLERY.length}</span>

@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import { ArrowLeft, CalendarDays, CreditCard, Landmark, Lock, ShieldCheck, Smartphone, Users } from '@lucide/svelte';
-	import { inr, nightsBetween, ROOMS, totalFor } from '#lib/data/hotel';
+	import { inr, nightsBetween, ROOMS, totalFor, usrcset } from '#lib/data/hotel';
 	import { reveal } from '#lib/reveal';
 
 	const q = page.url.searchParams;
@@ -61,8 +61,6 @@
 </script>
 
 <svelte:head>
-	<title>Checkout — The Aurelia Palace, Jaipur | Guest Details & Payment (Demo)</title>
-	<meta name="description" content="Complete your demo booking at The Aurelia Palace, Jaipur. Guest details and mock payment — no real payment is taken." />
 	<meta name="robots" content="noindex" />
 </svelte:head>
 
@@ -127,7 +125,7 @@
 
 			<aside class="min-w-0 lg:col-span-2" use:reveal>
 				<div class="card overflow-hidden">
-					<img src={room.image} alt={room.name} loading="lazy" class="aspect-[16/9] w-full object-cover" />
+					<img src={room.image} srcset={usrcset(room.image)} sizes="(max-width: 1024px) 100vw, 50vw" alt={room.name} loading="lazy" decoding="async" class="aspect-[16/9] w-full object-cover" />
 					<div class="p-6">
 						<h2 class="font-display text-2xl font-semibold">{room.name}</h2>
 						<p class="mt-1 text-sm text-muted">{room.view} · {room.size} sqm · {room.bed}</p>

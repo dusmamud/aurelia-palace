@@ -51,8 +51,6 @@
 </script>
 
 <svelte:head>
-	<title>Manage My Booking — The Aurelia Palace, Jaipur</title>
-	<meta name="description" content="Look up, view or cancel your booking at The Aurelia Palace, Jaipur with your booking reference and email or phone." />
 	<meta name="robots" content="noindex" />
 </svelte:head>
 

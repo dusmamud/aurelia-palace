@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PageHero from '#lib/components/PageHero.svelte';
-	import { DINING, IMAGES, inr } from '#lib/data/hotel';
+	import { DINING, IMAGES, inr, usrcset } from '#lib/data/hotel';
 	import { reveal } from '#lib/reveal';
 	import { Clock, Leaf, UtensilsCrossed, ArrowRight, CalendarDays } from '@lucide/svelte';
 
@@ -37,8 +37,11 @@
 				<a href="/dining/{restaurant.slug}" class="block overflow-hidden" aria-label={restaurant.name}>
 					<img
 						src={restaurant.image}
+						srcset={usrcset(restaurant.image)}
+						sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
 						alt={restaurant.name}
 						loading="lazy"
+						decoding="async"
 						class="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-105"
 					/>
 				</a>

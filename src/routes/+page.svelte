@@ -4,7 +4,7 @@
 	import CountUp from '#lib/components/CountUp.svelte';
 	import RoomCard from '#lib/components/RoomCard.svelte';
 	import { reveal, parallax } from '#lib/reveal';
-	import { DINING, EXPERIENCES, FAQS, HOTEL, IMAGES, OFFERS, ROOMS, TESTIMONIALS, inr } from '#lib/data/hotel';
+	import { DINING, EXPERIENCES, FAQS, HOTEL, IMAGES, OFFERS, ROOMS, TESTIMONIALS, inr, usrcset } from '#lib/data/hotel';
 
 	const heroWords = ['A', 'palace', 'stay,', 'quietly', 'perfected.'];
 
@@ -25,18 +25,14 @@
 	});
 </script>
 
-<svelte:head>
-	<title>{HOTEL.name} · Five Star Palace Hotel in {HOTEL.city}</title>
-	<meta
-		name="description"
-		content="The Aurelia Palace, Jaipur — 118 rooms and suites, royal Indian dining at Saffron, Amara Spa, and a 25-minute airport transfer. Book direct for the best rate."
-	/>
-</svelte:head>
+<!-- Meta (title, description, canonical, OG, Twitter) now comes from the layout via src/lib/data/meta.ts. -->
 
 <!-- Hero -->
 <section class="relative flex min-h-[92svh] items-end overflow-hidden bg-pine text-white">
 	<img
 		src={IMAGES.hero}
+		srcset={usrcset(IMAGES.hero, [800, 1200, 1600, 2000])}
+		sizes="100vw"
 		alt="Amber Fort above Maota Lake, Jaipur"
 		fetchpriority="high"
 		class="animate-kenburns absolute inset-0 h-full w-full object-cover"
@@ -84,8 +80,11 @@
 		<div class="min-w-0 overflow-hidden rounded-md" use:parallax>
 			<img
 				src={IMAGES.palace}
+				srcset={usrcset(IMAGES.palace)}
+				sizes="(max-width: 1024px) 100vw, 50vw"
 				alt="The palace facade of The Aurelia Palace"
 				loading="lazy"
+				decoding="async"
 				class="aspect-[4/3] w-full rounded-md object-cover"
 			/>
 		</div>
@@ -158,8 +157,11 @@
 			<article class="card img-zoom min-w-0" use:reveal={{ delay: i * 80 }}>
 				<img
 					src={restaurant.image}
+					srcset={usrcset(restaurant.image)}
+					sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
 					alt={restaurant.name}
 					loading="lazy"
+					decoding="async"
 					class="aspect-[16/10] w-full object-cover"
 				/>
 				<div class="p-5">
@@ -204,8 +206,11 @@
 		<div class="min-w-0 overflow-hidden rounded-md" use:parallax>
 			<img
 				src={IMAGES.spa}
+				srcset={usrcset(IMAGES.spa)}
+				sizes="(max-width: 1024px) 100vw, 50vw"
 				alt="Amara Spa treatment suite"
 				loading="lazy"
+				decoding="async"
 				class="aspect-[4/3] w-full rounded-md object-cover"
 			/>
 		</div>
@@ -221,8 +226,11 @@
 			<article class="card img-zoom min-w-0" use:reveal={{ delay: i * 80 }}>
 				<img
 					src={experience.image}
+					srcset={usrcset(experience.image)}
+					sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
 					alt={experience.title}
 					loading="lazy"
+					decoding="async"
 					class="aspect-[4/3] w-full object-cover"
 				/>
 				<div class="p-5">
@@ -290,8 +298,11 @@
 		<div class="min-w-0">
 			<img
 				src={IMAGES.heritage}
+				srcset={usrcset(IMAGES.heritage)}
+				sizes="(max-width: 1024px) 100vw, 50vw"
 				alt="The old city of Jaipur near the palace"
 				loading="lazy"
+				decoding="async"
 				class="aspect-[4/3] w-full rounded-md object-cover"
 			/>
 		</div>

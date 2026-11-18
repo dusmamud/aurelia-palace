@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PageHero from '#lib/components/PageHero.svelte';
-	import { IMAGES, inr } from '#lib/data/hotel';
+	import { IMAGES, inr, usrcset } from '#lib/data/hotel';
 	import { VENUES, DAY_DELEGATE, TEAM_BUILDING, CLIENTS, LAYOUTS } from '#lib/data/meetings';
 	import { reveal } from '#lib/reveal';
 	import {
@@ -76,7 +76,7 @@
 		<div class="mt-8 grid gap-4 sm:grid-cols-2">
 			{#each VENUES as venue, i (venue.name)}
 				<article class="card min-w-0" use:reveal={{ delay: i * 90 }}>
-					<img src={venue.image} alt={venue.name} loading="lazy" class="aspect-[16/9] w-full object-cover" />
+					<img src={venue.image} srcset={usrcset(venue.image)} sizes="(max-width: 640px) 100vw, 50vw" alt={venue.name} loading="lazy" decoding="async" class="aspect-[16/9] w-full object-cover" />
 					<div class="p-5 sm:p-6">
 						<div class="flex items-start justify-between gap-3">
 							<h3 class="font-display text-2xl leading-tight font-semibold text-ink">{venue.name}</h3>
@@ -144,7 +144,7 @@
 					<li class="flex items-start gap-2 text-sm text-ink/85"><UserCheck class="mt-0.5 h-4 w-4 shrink-0 text-gold-dark" /> Dedicated coordinator, start to finish</li>
 				</ul>
 			</div>
-			<img src={IMAGES.resort2} alt="Courtyard Pavilion set for a conference" loading="lazy" class="aspect-[4/3] w-full rounded-md object-cover" />
+			<img src={IMAGES.resort2} srcset={usrcset(IMAGES.resort2)} sizes="(max-width: 1024px) 100vw, 50vw" alt="Courtyard Pavilion set for a conference" loading="lazy" decoding="async" class="aspect-[4/3] w-full rounded-md object-cover" />
 		</div>
 	</div>
 

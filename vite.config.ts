@@ -7,6 +7,10 @@ export default defineConfig({
 	plugins: [
 		tailwindcss(),
 		sveltekit({
+			// Inline the ~10KB stylesheet into each HTML page instead of
+			// serving it as a render-blocking request (PageSpeed flagged
+			// render-blocking requests of 70–130ms on every page).
+			inlineStyleThreshold: 20000,
 			compilerOptions: {
 				runes: ({ filename }) =>
 					filename.split(/[/\\]/).includes('node_modules') ? undefined : true

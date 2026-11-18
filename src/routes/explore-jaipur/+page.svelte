@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PageHero from '#lib/components/PageHero.svelte';
-	import { IMAGES, inr } from '#lib/data/hotel';
+	import { IMAGES, inr, usrcset } from '#lib/data/hotel';
 	import { ATTRACTIONS, ITINERARY, SEASONS } from '#lib/data/explore-jaipur';
 	import { reveal } from '#lib/reveal';
 	import { ArrowRight, CalendarDays, Clock, ConciergeBell, MapPin, Sun, Ticket } from '@lucide/svelte';
@@ -8,10 +8,7 @@
 	const heroImage = 'https://images.unsplash.com/photo-1477587458883-47145ed94245?q=80&w=2000&auto=format&fit=crop';
 </script>
 
-<svelte:head>
-	<title>Explore Jaipur — The Aurelia Palace | Amber Fort, Hawa Mahal, City Palace & a 1-Day Itinerary</title>
-	<meta name="description" content="Explore Jaipur from The Aurelia Palace — Amber Fort 11 km, Hawa Mahal 2.5 km, City Palace 2 km. Entry fees, best times, and a curated one-day itinerary." />
-</svelte:head>
+<!-- Meta now comes from the layout via src/lib/data/meta.ts. -->
 
 <PageHero
 	eyebrow="Explore Jaipur"
@@ -41,7 +38,7 @@
 		<div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
 			{#each ATTRACTIONS as a (a.name)}
 				<article class="card flex min-w-0 flex-col">
-					<img src={a.image} alt={a.name} loading="lazy" class="aspect-[4/3] w-full object-cover" />
+					<img src={a.image} srcset={usrcset(a.image)} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" alt={a.name} loading="lazy" decoding="async" class="aspect-[4/3] w-full object-cover" />
 					<div class="flex min-w-0 flex-1 flex-col p-5">
 						<div class="flex items-start justify-between gap-2">
 							<h3 class="font-display text-2xl leading-tight font-semibold">{a.name}</h3>
@@ -86,7 +83,7 @@
 					Private chauffeur from {inr(4500)} for a full day, a historian guide from {inr(2500)}, and
 					tickets booked before you leave the palace. Heritage walks leave every Saturday at 7:30 AM — free for guests.
 				</p>
-				<img src={IMAGES.heritage} alt="Heritage walk in the old city of Jaipur" loading="lazy" class="mt-5 aspect-[16/10] w-full rounded-sm object-cover" />
+				<img src={IMAGES.heritage} srcset={usrcset(IMAGES.heritage, [800, 1200, 1600, 2000])} sizes="100vw" alt="Heritage walk in the old city of Jaipur" loading="lazy" decoding="async" class="mt-5 aspect-[16/10] w-full rounded-sm object-cover" />
 				<a href="/contact?subject=Jaipur%20Tours" class="btn-gold mt-5 w-full">Book a Tour <ArrowRight class="h-4 w-4" /></a>
 				<a href="/experiences" class="btn-ghost-light mt-3 w-full">See All Experiences</a>
 			</div>

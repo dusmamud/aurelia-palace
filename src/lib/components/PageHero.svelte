@@ -1,13 +1,17 @@
 <script lang="ts">
+	import { usrcset } from '#lib/data/hotel';
+
 	let { eyebrow, title, subtitle, image }: { eyebrow: string; title: string; subtitle?: string; image: string } = $props();
 
 	const words = $derived(title.split(' '));
 </script>
 
-<section class="relative flex min-h-[46vh] items-end overflow-hidden bg-pine text-white sm:min-h-[52vh]">
+<section class="relative flex min-h-[46svh] items-end overflow-hidden bg-pine text-white sm:min-h-[52svh]">
 	<img
 		src={image}
-		alt=""
+		srcset={usrcset(image, [800, 1200, 1600, 2000])}
+		sizes="100vw"
+		alt={title}
 		class="animate-kenburns absolute inset-0 h-full w-full object-cover"
 		fetchpriority="high"
 	/>

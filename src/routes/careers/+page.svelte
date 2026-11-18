@@ -31,10 +31,7 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Careers — The Aurelia Palace, Jaipur | Join the Palace Team</title>
-	<meta name="description" content="Careers at The Aurelia Palace, Jaipur — Front Office Manager, Executive Chef, Spa Therapist and Guest Relations roles. Apply online." />
-</svelte:head>
+<!-- Meta now comes from the layout via src/lib/data/meta.ts. -->
 
 <PageHero
 	eyebrow="Careers"

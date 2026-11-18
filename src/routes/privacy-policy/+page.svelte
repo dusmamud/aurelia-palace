@@ -4,8 +4,6 @@
 </script>
 
 <svelte:head>
-	<title>Privacy Policy — The Aurelia Palace, Jaipur</title>
-	<meta name="description" content="Privacy policy for The Aurelia Palace, Jaipur — what guest information we collect, how we use it, and your rights." />
 	<meta name="robots" content="noindex" />
 </svelte:head>
 

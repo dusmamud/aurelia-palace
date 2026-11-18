@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Award, Crown, HeartHandshake, Leaf, ShieldCheck } from '@lucide/svelte';
 	import PageHero from '#lib/components/PageHero.svelte';
-	import { HOTEL, IMAGES } from '#lib/data/hotel';
+	import { HOTEL, IMAGES, usrcset } from '#lib/data/hotel';
 	import { reveal } from '#lib/reveal';
 
 	const values = [
@@ -24,10 +24,7 @@
 	];
 </script>
 
-<svelte:head>
-	<title>About — The Aurelia Palace, Jaipur | A Palace Since 1892</title>
-	<meta name="description" content="The Aurelia Palace, Jaipur — built in 1892 as a royal residence, restored in 2024. 118 rooms and suites, royal Indian dining, Amara Spa and a team that treats guests like family." />
-</svelte:head>
+<!-- Meta now comes from the layout via src/lib/data/meta.ts. -->
 
 <PageHero
 	eyebrow="Our story"
@@ -65,7 +62,7 @@
 			</div>
 		</div>
 		<div class="min-w-0">
-			<img src={IMAGES.resort} alt="The palace courtyard" loading="lazy" class="aspect-[4/3] w-full rounded-md object-cover" />
+			<img src={IMAGES.resort} srcset={usrcset(IMAGES.resort)} sizes="(max-width: 1024px) 100vw, 50vw" alt="The palace courtyard" loading="lazy" decoding="async" class="aspect-[4/3] w-full rounded-md object-cover" />
 			<p class="mt-3 text-sm text-muted">The courtyard at first light — the quietest hour of the palace day.</p>
 		</div>
 	</div>

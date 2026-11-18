@@ -6,10 +6,7 @@
 	import { Award, Mail, Newspaper, Phone, Quote } from '@lucide/svelte';
 </script>
 
-<svelte:head>
-	<title>Press & Awards — The Aurelia Palace, Jaipur | Best Heritage Hotel, Readers’ Choice</title>
-	<meta name="description" content="Press and awards for The Aurelia Palace, Jaipur — Best Heritage Hotel at the India Travel Awards 2025, Condé Nast Traveller Readers’ Choice, Best Luxury Spa 2026." />
-</svelte:head>
+<!-- Meta now comes from the layout via src/lib/data/meta.ts. -->
 
 <PageHero
 	eyebrow="Press & Awards"

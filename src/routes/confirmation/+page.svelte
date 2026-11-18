@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { CalendarDays, CheckCircle2, Mail, Users } from '@lucide/svelte';
-	import { inr, ROOMS } from '#lib/data/hotel';
+	import { inr, ROOMS, usrcset } from '#lib/data/hotel';
 	import { reveal } from '#lib/reveal';
 
 	type Booking = {
@@ -29,8 +29,6 @@
 </script>
 
 <svelte:head>
-	<title>Booking Confirmed {ref} — The Aurelia Palace, Jaipur</title>
-	<meta name="description" content="Your booking at The Aurelia Palace, Jaipur is confirmed (demo). Keep your booking reference safe." />
 	<meta name="robots" content="noindex" />
 </svelte:head>
 
@@ -50,7 +48,7 @@
 		<p class="font-display text-4xl font-semibold tracking-wide text-pine sm:text-5xl">{ref || '—'}</p>
 		{#if room}
 			<div class="mt-6 flex gap-4">
-				<img src={room.image} alt={room.name} loading="lazy" class="h-20 w-28 shrink-0 rounded-sm object-cover" />
+				<img src={room.image} srcset={usrcset(room.image, [160, 320])} sizes="112px" alt={room.name} loading="lazy" decoding="async" class="h-20 w-28 shrink-0 rounded-sm object-cover" />
 				<div class="min-w-0">
 					<h2 class="font-display text-2xl font-semibold">{room.name}</h2>
 					<p class="text-sm text-muted">{room.view} · {room.size} sqm · {room.bed}</p>

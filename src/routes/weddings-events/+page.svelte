@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PageHero from '#lib/components/PageHero.svelte';
-	import { IMAGES } from '#lib/data/hotel';
+	import { IMAGES, usrcset } from '#lib/data/hotel';
 	import { reveal } from '#lib/reveal';
 	import { Users, Check, Heart, Briefcase } from '@lucide/svelte';
 
@@ -84,7 +84,7 @@
 					<li class="flex items-start gap-2"><Check class="mt-0.5 h-4 w-4 shrink-0 text-gold-dark" /> Airport transfers and valet parking</li>
 				</ul>
 			</div>
-			<img src={IMAGES.events} alt="Conference setup at the palace" loading="lazy" class="aspect-[4/3] w-full rounded-md object-cover" />
+			<img src={IMAGES.events} srcset={usrcset(IMAGES.events)} sizes="(max-width: 1024px) 100vw, 50vw" alt="Conference setup at the palace" loading="lazy" decoding="async" class="aspect-[4/3] w-full rounded-md object-cover" />
 		</div>
 		<div class="mt-8 grid gap-4 sm:grid-cols-3">
 			{#each ROOMS as room, i (room.name)}

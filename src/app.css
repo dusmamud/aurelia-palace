@@ -17,7 +17,7 @@
 	--color-pine: #122e28;
 	--color-pine-2: #1a3d34;
 	--color-gold: #b9975b;
-	--color-gold-dark: #9a7b45;
+	--color-gold-dark: #8a6d33;
 	--color-muted: #6b6560;
 	--color-line: #ddd3c2;
 
@@ -171,7 +171,7 @@ body {
 	font-weight: 600;
 	letter-spacing: 0.3em;
 	text-transform: uppercase;
-	color: #9a7b45;
+	color: #8a6d33;
 }
 .section-eyebrow::before {
 	content: '';
@@ -250,7 +250,7 @@ body {
 	transform: translateX(-101%);
 	transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.btn-gold::after { background: #9a7b45; }
+.btn-gold::after { background: #8a6d33; }
 .btn-pine::after { background: #1a3d34; }
 .btn-ghost::after { background: rgba(185, 151, 91, 0.16); }
 .btn-ghost-light::after { background: rgba(185, 151, 91, 0.22); }

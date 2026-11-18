@@ -3,7 +3,7 @@
 	import { page } from '$app/state';
 	import { BadgeCheck, BedDouble, Eye, Maximize, ShieldCheck, Users } from '@lucide/svelte';
 	import BookingBar from '#lib/components/BookingBar.svelte';
-	import { inr, nightsBetween, ROOMS, totalFor, type Room } from '#lib/data/hotel';
+	import { inr, nightsBetween, ROOMS, totalFor, usrcset, type Room } from '#lib/data/hotel';
 	import { reveal } from '#lib/reveal';
 
 	function todayPlus(n: number): string {
@@ -32,10 +32,7 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Choose Your Room — The Aurelia Palace, Jaipur | Book Direct</title>
-	<meta name="description" content="Choose your room at The Aurelia Palace, Jaipur. Prices shown with 18% GST included, free cancellation up to 72 hours before check-in, best rate guarantee." />
-</svelte:head>
+<!-- Meta now comes from the layout via src/lib/data/meta.ts. -->
 
 <section class="bg-pine px-4 pt-28 pb-8 text-ivory sm:px-6 lg:px-8">
 	<div class="mx-auto max-w-7xl">
@@ -55,7 +52,7 @@
 				use:reveal={{ delay: (i % 3) * 80 }}
 			>
 				<button class="block w-full overflow-hidden text-left" onclick={() => (selected = room)} aria-pressed={selected?.slug === room.slug}>
-					<img src={room.image} alt={room.name} loading="lazy" class="aspect-[4/3] w-full object-cover" />
+					<img src={room.image} srcset={usrcset(room.image)} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" alt={room.name} loading="lazy" decoding="async" class="aspect-[4/3] w-full object-cover" />
 				</button>
 				<div class="p-5">
 					<div class="flex items-start justify-between gap-3">

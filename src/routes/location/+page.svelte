@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { ArrowRight, Clock, Landmark, Mail, MapPin, Navigation, Phone, Plane, TrainFront } from '@lucide/svelte';
 	import PageHero from '#lib/components/PageHero.svelte';
-	import { HOTEL, IMAGES } from '#lib/data/hotel';
+	import { HOTEL, IMAGES, usrcset } from '#lib/data/hotel';
 	import { reveal } from '#lib/reveal';
 
 	const distances = [
@@ -21,10 +21,7 @@
 	];
 </script>
 
-<svelte:head>
-	<title>Location — The Aurelia Palace, Jaipur | C-Scheme, Near Hawa Mahal & Amber Fort</title>
-	<meta name="description" content="The Aurelia Palace, Jaipur — 12 Rajmahal Road, C-Scheme. 25 minutes from Jaipur International Airport, 8 minutes from Hawa Mahal, 30 minutes from Amber Fort." />
-</svelte:head>
+<!-- Meta now comes from the layout via src/lib/data/meta.ts. -->
 
 <PageHero
 	eyebrow="Location"
@@ -107,7 +104,7 @@
 		<div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
 			{#each nearby as place (place.name)}
 				<article class="card min-w-0">
-					<img src={place.image} alt={place.name} loading="lazy" class="aspect-[4/3] w-full object-cover" />
+					<img src={place.image} srcset={usrcset(place.image)} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" alt={place.name} loading="lazy" decoding="async" class="aspect-[4/3] w-full object-cover" />
 					<div class="p-5">
 						<h3 class="font-display text-2xl font-semibold">{place.name}</h3>
 						<p class="mt-2 text-sm leading-relaxed text-muted">{place.text}</p>

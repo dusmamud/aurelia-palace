@@ -66,10 +66,7 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Gift Cards — The Aurelia Palace, Jaipur | Give a Palace Stay</title>
-	<meta name="description" content="Gift cards for The Aurelia Palace, Jaipur — from ₹5,000, valid 12 months, redeemable on rooms, dining, spa and experiences." />
-</svelte:head>
+<!-- Meta now comes from the layout via src/lib/data/meta.ts. -->
 
 <PageHero
 	eyebrow="Gift Cards"

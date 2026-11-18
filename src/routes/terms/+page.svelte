@@ -4,8 +4,6 @@
 </script>
 
 <svelte:head>
-	<title>Terms & Conditions — The Aurelia Palace, Jaipur</title>
-	<meta name="description" content="Terms and conditions for staying and booking at The Aurelia Palace, Jaipur." />
 	<meta name="robots" content="noindex" />
 </svelte:head>
 

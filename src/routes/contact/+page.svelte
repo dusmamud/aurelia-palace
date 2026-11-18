@@ -39,10 +39,7 @@
 	}
 </script>
 
-<svelte:head>
-	<title>Contact — The Aurelia Palace, Jaipur | Reservations & Concierge</title>
-	<meta name="description" content="Contact The Aurelia Palace, Jaipur — call +91 141 456 7890, email stay@aureliapalace.in, or send an enquiry. 12 Rajmahal Road, C-Scheme, Jaipur 302001." />
-</svelte:head>
+<!-- Meta now comes from the layout via src/lib/data/meta.ts. -->
 
 <PageHero
 	eyebrow="Contact"

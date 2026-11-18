@@ -23,13 +23,7 @@
 	);
 </script>
 
-<svelte:head>
-	<title>Rooms &amp; Suites · The Aurelia Palace, Jaipur</title>
-	<meta
-		name="description"
-		content="Six rooms and suites at The Aurelia Palace, Jaipur — from the Deluxe Palace Room at ₹18,999 to the Aurelia Presidential Suite. Garden, courtyard, palace and Aravalli views."
-	/>
-</svelte:head>
+<!-- Meta now comes from the layout via src/lib/data/meta.ts. -->
 
 <PageHero
 	eyebrow="Rooms & Suites"

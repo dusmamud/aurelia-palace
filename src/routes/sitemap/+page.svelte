@@ -14,10 +14,7 @@
 	];
 </script>
 
-<svelte:head>
-	<title>Sitemap — The Aurelia Palace, Jaipur</title>
-	<meta name="description" content="Every page on The Aurelia Palace, Jaipur website — rooms, dining, spa, weddings, booking, journal and policies." />
-</svelte:head>
+<!-- Meta now comes from the layout via src/lib/data/meta.ts. -->
 
 <PageHero eyebrow="Sitemap" title="Every page, in one place" subtitle="Rooms, dining, spa, weddings, booking and everything else — find it here." image={IMAGES.resort2} />
 

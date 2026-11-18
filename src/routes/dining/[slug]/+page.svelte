@@ -1,12 +1,44 @@
 <script lang="ts">
 	import PageHero from '#lib/components/PageHero.svelte';
-	import { DINING, inr } from '#lib/data/hotel';
+	import { DINING, HOTEL, inr, usrcset } from '#lib/data/hotel';
+	import { SITE_URL } from '#lib/data/meta';
 	import { reveal } from '#lib/reveal';
 	import { Clock, UtensilsCrossed, Leaf, Check, ArrowRight, CalendarDays } from '@lucide/svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
 	const restaurant = $derived(data.restaurant);
+
+	// Cuisines are taken from the visible copy (kind + description) only.
+	const CUISINES: Record<string, string[]> = {
+		saffron: ['Rajasthani', 'North Indian'],
+		'the-courtyard': ['Indian', 'International'],
+		zoya: ['Cocktails', 'Bar food']
+	};
+
+	const restaurantJsonLd = $derived(
+		JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'Restaurant',
+			'@id': `${SITE_URL}/dining/${restaurant.slug}#restaurant`,
+			name: restaurant.name,
+			description: restaurant.description,
+			image: restaurant.image,
+			servesCuisine: CUISINES[restaurant.slug] ?? ['Indian'],
+			priceRange: restaurant.price,
+			acceptsReservations: 'True',
+			telephone: HOTEL.phone,
+			address: {
+				'@type': 'PostalAddress',
+				streetAddress: '12 Rajmahal Road, C-Scheme',
+				addressLocality: 'Jaipur',
+				addressRegion: 'Rajasthan',
+				postalCode: '302001',
+				addressCountry: 'IN'
+			},
+			containedInPlace: { '@type': 'Hotel', '@id': `${SITE_URL}/#hotel` }
+		})
+	);
 
 	const SIGNATURES: Record<string, { name: string; note: string; price: number }[]> = {
 		saffron: [
@@ -60,6 +92,10 @@
 	}
 </script>
 
+<svelte:head>
+	{@html `<script type="application/ld+json">${restaurantJsonLd}</script>`}
+</svelte:head>
+
 <PageHero
 	eyebrow={restaurant.kind}
 	title={restaurant.name}
@@ -97,7 +133,7 @@
 			<div class="mt-6 grid gap-4 sm:grid-cols-2">
 				{#each others as other (other.slug)}
 					<a href="/dining/{other.slug}" class="card group flex min-w-0 items-center gap-4 p-4">
-						<img src={other.image} alt={other.name} loading="lazy" class="h-20 w-20 shrink-0 rounded-sm object-cover" />
+						<img src={other.image} srcset={usrcset(other.image, [160, 320])} sizes="80px" alt={other.name} loading="lazy" decoding="async" class="h-20 w-20 shrink-0 rounded-sm object-cover" />
 						<span class="min-w-0">
 							<span class="font-display block truncate text-xl font-semibold text-ink group-hover:text-gold-dark">{other.name}</span>
 							<span class="block truncate text-xs text-muted">{other.kind} · {other.hours}</span>

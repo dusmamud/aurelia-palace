@@ -5,11 +5,23 @@
 	import { reveal } from '#lib/reveal';
 
 	let open = $state(0);
+
+	// FAQPage markup mirrors the visible Q&As exactly. (Google stopped
+	// showing FAQ rich results on 7 May 2026, so this earns no visible
+	// result — it exists for machine readability and AI search.)
+	const faqJsonLd = JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'FAQPage',
+		mainEntity: FAQS.map((faq) => ({
+			'@type': 'Question',
+			name: faq.q,
+			acceptedAnswer: { '@type': 'Answer', text: faq.a }
+		}))
+	});
 </script>
 
 <svelte:head>
-	<title>FAQ — The Aurelia Palace, Jaipur | Check-in, Cancellation, Breakfast & More</title>
-	<meta name="description" content="Frequently asked questions about The Aurelia Palace, Jaipur — check-in 2 PM, check-out 12 PM, breakfast, airport transfers, cancellation and vegetarian food." />
+	{@html `<script type="application/ld+json">${faqJsonLd}</script>`}
 </svelte:head>
 
 <PageHero

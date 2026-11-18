@@ -1,7 +1,7 @@
 <script lang="ts">
 	import PageHero from '#lib/components/PageHero.svelte';
 	import { AMENITIES, SIGNATURE_AMENITIES } from '#lib/data/amenities';
-	import { IMAGES } from '#lib/data/hotel';
+	import { IMAGES, usrcset } from '#lib/data/hotel';
 	import { reveal } from '#lib/reveal';
 	import { ArrowRight, Check, Clock } from '@lucide/svelte';
 </script>
@@ -20,8 +20,11 @@
 			<article class="grid items-center gap-6 lg:grid-cols-2 lg:gap-12" use:reveal>
 				<img
 					src={sig.image}
+					srcset={usrcset(sig.image)}
+					sizes="(max-width: 1024px) 100vw, 50vw"
 					alt={sig.title}
 					loading="lazy"
+					decoding="async"
 					class="aspect-[4/3] w-full rounded-md object-cover {i % 2 === 1 ? 'lg:order-2' : ''}"
 				/>
 				<div class="min-w-0 {i % 2 === 1 ? 'lg:order-1' : ''}">

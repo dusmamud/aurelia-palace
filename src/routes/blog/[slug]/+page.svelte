@@ -1,12 +1,30 @@
 <script lang="ts">
 	import { ArrowLeft, ArrowRight, CalendarDays } from '@lucide/svelte';
-	import { POSTS } from '#lib/data/hotel';
+	import { POSTS, usrcset } from '#lib/data/hotel';
+	import { isoDate, SITE_URL } from '#lib/data/meta';
 	import { reveal } from '#lib/reveal';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
 	const post = $derived(data.post);
 	const others = $derived(POSTS.filter((p) => p.slug !== post.slug));
+
+	// BlogPosting: dates come from the post data (nothing invented); the
+	// author/publisher is the hotel itself — posts carry no personal byline.
+	const postJsonLd = $derived(
+		JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'BlogPosting',
+			headline: post.title,
+			description: post.excerpt,
+			image: post.image,
+			datePublished: isoDate(post.date),
+			dateModified: isoDate(post.date),
+			author: { '@type': 'Organization', name: 'The Aurelia Palace', url: `${SITE_URL}/` },
+			publisher: { '@type': 'Organization', name: 'The Aurelia Palace', url: `${SITE_URL}/` },
+			mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}/blog/${post.slug}` }
+		})
+	);
 
 	const bodies: Record<string, string[]> = {
 		'jaipur-in-48-hours': [
@@ -34,14 +52,13 @@
 </script>
 
 <svelte:head>
-	<title>{post.title} — The Aurelia Palace, Jaipur</title>
-	<meta name="description" content={post.excerpt} />
+	{@html `<script type="application/ld+json">${postJsonLd}</script>`}
 </svelte:head>
 
 <article class="mx-auto max-w-4xl px-4 pt-28 pb-14 sm:px-6 lg:px-8">
 	<a href="/blog" class="inline-flex min-h-11 items-center gap-2 text-sm font-semibold tracking-[0.14em] text-gold-dark uppercase"><ArrowLeft class="h-4 w-4" /> Back to Journal</a>
 	<div use:reveal>
-		<img src={post.image} alt={post.title} class="mt-6 aspect-[16/9] w-full rounded-md object-cover" />
+		<img src={post.image} srcset={usrcset(post.image, [800, 1200, 1600, 2000])} sizes="100vw" alt={post.title} decoding="async" class="mt-6 aspect-[16/9] w-full rounded-md object-cover" />
 		<p class="eyebrow mt-8 flex items-center gap-1.5"><CalendarDays class="h-3.5 w-3.5" /> {post.date} · The Aurelia Palace, Jaipur</p>
 		<h1 class="font-display mt-3 text-4xl leading-[1.05] font-semibold sm:text-5xl">{post.title}</h1>
 		<p class="mt-4 text-lg leading-relaxed text-muted">{post.excerpt}</p>
@@ -66,7 +83,7 @@
 			<div class="mt-6 grid gap-4 sm:grid-cols-2">
 				{#each others as other (other.slug)}
 					<a href="/blog/{other.slug}" class="card group flex min-w-0 gap-4 p-4">
-						<img src={other.image} alt={other.title} loading="lazy" class="h-20 w-28 shrink-0 rounded-sm object-cover" />
+						<img src={other.image} srcset={usrcset(other.image, [160, 320])} sizes="112px" alt={other.title} loading="lazy" decoding="async" class="h-20 w-28 shrink-0 rounded-sm object-cover" />
 						<span class="min-w-0">
 							<span class="block text-xs text-gold-dark">{other.date}</span>
 							<span class="font-display mt-1 block text-xl leading-tight font-semibold transition group-hover:text-gold-dark">{other.title}</span>

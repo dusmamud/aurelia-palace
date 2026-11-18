@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PageHero from '#lib/components/PageHero.svelte';
-	import { IMAGES, inr } from '#lib/data/hotel';
+	import { IMAGES, inr, usrcset } from '#lib/data/hotel';
 	import { reveal } from '#lib/reveal';
 	import { Clock, Waves, Dumbbell, Leaf, Sparkles, Check } from '@lucide/svelte';
 
@@ -54,7 +54,7 @@
 
 <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
 	<div class="grid items-center gap-8 lg:grid-cols-2" use:reveal>
-		<img src={IMAGES.spa2} alt="Treatment suite at Amara Spa" loading="lazy" class="aspect-[4/3] w-full rounded-md object-cover" />
+		<img src={IMAGES.spa2} srcset={usrcset(IMAGES.spa2)} sizes="(max-width: 1024px) 100vw, 50vw" alt="Treatment suite at Amara Spa" loading="lazy" decoding="async" class="aspect-[4/3] w-full rounded-md object-cover" />
 		<div class="min-w-0">
 			<p class="eyebrow">Amara Spa</p>
 			<h2 class="section-title mt-2">Wellness, the palace way</h2>

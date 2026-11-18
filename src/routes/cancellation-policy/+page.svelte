@@ -5,10 +5,7 @@
 	import { reveal } from '#lib/reveal';
 </script>
 
-<svelte:head>
-	<title>Cancellation Policy — The Aurelia Palace, Jaipur | Free Cancellation up to 72 Hours</title>
-	<meta name="description" content="Cancellation policy for The Aurelia Palace, Jaipur — free cancellation up to 72 hours before check-in, 50% charge 24–72 hours, no refund under 24 hours." />
-</svelte:head>
+<!-- Meta now comes from the layout via src/lib/data/meta.ts. -->
 
 <PageHero eyebrow="Good to know" title="Cancellation policy" subtitle="Clear, upfront, and the same for every guest. No surprises." image={IMAGES.resort} />
 

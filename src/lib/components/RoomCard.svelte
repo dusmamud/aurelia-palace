@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { BedDouble, Users, Maximize, Eye } from '@lucide/svelte';
-	import { inr, type Room } from '#lib/data/hotel';
+	import { inr, usrcset, type Room } from '#lib/data/hotel';
 
 	let { room }: { room: Room } = $props();
 </script>
@@ -9,8 +9,11 @@
 	<a href="/rooms/{room.slug}" class="block overflow-hidden" aria-label={room.name}>
 		<img
 			src={room.image}
+			srcset={usrcset(room.image)}
+			sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
 			alt={room.name}
 			loading="lazy"
+			decoding="async"
 			class="aspect-[4/3] w-full object-cover transition duration-[600ms] ease-out group-hover:scale-[1.04]"
 		/>
 	</a>

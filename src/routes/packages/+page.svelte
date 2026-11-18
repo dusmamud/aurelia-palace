@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PageHero from '#lib/components/PageHero.svelte';
-	import { IMAGES, inr } from '#lib/data/hotel';
+	import { IMAGES, inr, usrcset } from '#lib/data/hotel';
 	import { PACKAGES, CATEGORIES, type PackageCategory } from '#lib/data/packages';
 	import { reveal } from '#lib/reveal';
 	import { Check, ArrowRight, Moon, Tag } from '@lucide/svelte';
@@ -39,7 +39,7 @@
 		{#each visible as pkg, i (pkg.slug)}
 			<article class="card flex min-w-0 flex-col" use:reveal={{ delay: (i % 3) * 90 }}>
 				<div class="relative">
-					<img src={pkg.image} alt={pkg.name} loading="lazy" class="aspect-[16/10] w-full object-cover" />
+					<img src={pkg.image} srcset={usrcset(pkg.image)} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" alt={pkg.name} loading="lazy" decoding="async" class="aspect-[16/10] w-full object-cover" />
 					<span class="absolute top-3 left-3 rounded-full bg-pine/90 px-3 py-1 text-xs font-semibold tracking-[0.14em] text-ivory uppercase">{pkg.category}</span>
 				</div>
 				<div class="flex flex-1 flex-col p-5 sm:p-6">

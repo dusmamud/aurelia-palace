@@ -1,15 +1,12 @@
 <script lang="ts">
 	import PageHero from '#lib/components/PageHero.svelte';
-	import { IMAGES, inr } from '#lib/data/hotel';
+	import { IMAGES, inr, usrcset } from '#lib/data/hotel';
 	import { OCCASIONS } from '#lib/data/occasions';
 	import { reveal } from '#lib/reveal';
 	import { ArrowRight, Check, Gift, Heart, Sparkles } from '@lucide/svelte';
 </script>
 
-<svelte:head>
-	<title>Special Occasions — The Aurelia Palace, Jaipur | Honeymoons, Family Holidays & Celebrations</title>
-	<meta name="description" content="Honeymoons, family holidays and celebrations at The Aurelia Palace, Jaipur — private dinners, couples spa rituals, kids club, private venues and photographers." />
-</svelte:head>
+<!-- Meta now comes from the layout via src/lib/data/meta.ts. -->
 
 <PageHero
 	eyebrow="Special Occasions"
@@ -24,8 +21,11 @@
 			<article class="grid items-center gap-6 lg:grid-cols-2 lg:gap-12" use:reveal>
 				<img
 					src={occ.image}
+					srcset={usrcset(occ.image)}
+					sizes="(max-width: 1024px) 100vw, 50vw"
 					alt={occ.title}
 					loading="lazy"
+					decoding="async"
 					class="aspect-[4/3] w-full rounded-md object-cover {i % 2 === 1 ? 'lg:order-2' : ''}"
 				/>
 				<div class="min-w-0 {i % 2 === 1 ? 'lg:order-1' : ''}">

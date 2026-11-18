@@ -1,14 +1,11 @@
 <script lang="ts">
 	import { ArrowRight, CalendarDays } from '@lucide/svelte';
 	import PageHero from '#lib/components/PageHero.svelte';
-	import { IMAGES, POSTS } from '#lib/data/hotel';
+	import { IMAGES, POSTS, usrcset } from '#lib/data/hotel';
 	import { reveal } from '#lib/reveal';
 </script>
 
-<svelte:head>
-	<title>Journal — The Aurelia Palace, Jaipur | Jaipur Guides & Palace Stories</title>
-	<meta name="description" content="The Aurelia Palace journal — Jaipur in 48 hours, inside the Saffron kitchen, and why December is the best month to visit Jaipur." />
-</svelte:head>
+<!-- Meta now comes from the layout via src/lib/data/meta.ts. -->
 
 <PageHero
 	eyebrow="Journal"
@@ -22,7 +19,7 @@
 		{#each POSTS as post, i (post.slug)}
 			<article class="card group min-w-0" use:reveal={{ delay: i * 80 }}>
 				<a href="/blog/{post.slug}" class="block overflow-hidden" aria-label={post.title}>
-					<img src={post.image} alt={post.title} loading="lazy" class="aspect-[16/10] w-full object-cover transition duration-500 group-hover:scale-105" />
+					<img src={post.image} srcset={usrcset(post.image)} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" alt={post.title} loading="lazy" decoding="async" class="aspect-[16/10] w-full object-cover transition duration-500 group-hover:scale-105" />
 				</a>
 				<div class="p-5">
 					<p class="flex items-center gap-1.5 text-xs tracking-[0.18em] text-gold-dark uppercase"><CalendarDays class="h-3.5 w-3.5" /> {post.date}</p>
