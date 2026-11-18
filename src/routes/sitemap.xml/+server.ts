@@ -7,15 +7,17 @@ const BASE = 'https://aureliapalace.pages.dev';
 // Only canonical, indexable URLs that return HTTP 200 belong in a sitemap.
 // Deliberately EXCLUDED (all three signals must agree — sitemap, robots.txt,
 // and the page's own status/meta):
-// - /book, /checkout, /confirmation, /manage-booking: client-only SPA pages
-//   (prerender=false). They render in a browser but return HTTP 404 on a
-//   direct fetch, so listing them tells crawlers to index a 404.
+// - /checkout, /confirmation, /manage-booking: transactional pages. They
+//   are prerendered shells since 2026-11-18 (they return 200 now), but
+//   without query params / a booking they show an empty state, so they stay
+//   noindex + robots-disallowed and out of the sitemap.
 // - /privacy-policy, /terms: carry meta noindex. A sitemap entry + noindex
 //   is a contradiction; the noindex wins and the entry wastes crawl budget.
 // - /sitemap: the human sitemap page itself is not a landing page.
-// The four booking pages are also Disallow in robots.txt, and the two
-// policy pages keep their noindex meta. lastmod is 2026-11-18 for every URL
-// because this fix round changed every page's head/meta/schema.
+// /book IS listed: it prerenders with all 6 rooms and prices (200, real
+// content) since the 2026-11-18 shell round, so its robots disallow was
+// removed too. lastmod is 2026-11-18 for every URL because this round
+// changed the booking pages' status plus every page's head/meta/schema.
 const LASTMOD = '2026-11-18';
 
 const staticRoutes = [
@@ -43,7 +45,8 @@ const staticRoutes = [
 	'/faq',
 	'/blog',
 	'/careers',
-	'/cancellation-policy'
+	'/cancellation-policy',
+	'/book'
 ];
 
 const routes = [

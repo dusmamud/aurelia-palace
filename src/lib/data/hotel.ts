@@ -18,7 +18,7 @@ const img = (id: string, w = 1600) =>
 	`https://images.unsplash.com/photo-${id}?q=80&w=${w}&auto=format&fit=crop`;
 
 /** Build a responsive srcset from a full Unsplash URL (strips its query, re-adds per-width params). */
-export function usrcset(url: string, widths: number[] = [480, 800, 1200, 1600]): string {
+export function usrcset(url: string, widths: number[] = [480, 640, 800, 1200, 1600]): string {
 	const base = url.split('?')[0];
 	return widths.map((w) => `${base}?q=80&w=${w}&auto=format&fit=crop ${w}w`).join(', ');
 }

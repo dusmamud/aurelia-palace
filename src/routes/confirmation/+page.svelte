@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { page } from '$app/state';
 	import { CalendarDays, CheckCircle2, Mail, Users } from '@lucide/svelte';
 	import { inr, ROOMS, usrcset } from '#lib/data/hotel';
@@ -10,17 +11,23 @@
 		name: string; email: string; phone: string; status: string;
 	};
 
-	const ref = page.url.searchParams.get('ref') ?? '';
-	const roomSlug = page.url.searchParams.get('room') ?? '';
-	const room = ROOMS.find((r) => r.slug === roomSlug);
-
+	// Prerendered shell: no `url.searchParams` during SSR (SvelteKit throws
+	// url_search_unavailable_prerender). The shell renders with an empty
+	// reference; the real params and the saved booking load in onMount.
+	let ref = $state('');
+	let roomSlug = $state('');
+	const room = $derived(ROOMS.find((r) => r.slug === roomSlug));
 	let booking = $state<Booking | null>(null);
-	if (typeof window !== 'undefined') {
+
+	onMount(() => {
+		const q = page.url.searchParams;
+		ref = q.get('ref') ?? '';
+		roomSlug = q.get('room') ?? '';
 		try {
 			const list: Booking[] = JSON.parse(localStorage.getItem('aurelia-bookings') ?? '[]');
 			booking = list.find((b) => b.ref === ref) ?? null;
 		} catch { /* ignore */ }
-	}
+	});
 
 	function fmtDate(s: string): string {
 		if (!s) return '—';

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
 	import { page } from '$app/state';
 	import { BadgeCheck, BedDouble, Eye, Maximize, ShieldCheck, Users } from '@lucide/svelte';
 	import BookingBar from '#lib/components/BookingBar.svelte';
@@ -12,14 +13,41 @@
 		return d.toISOString().slice(0, 10);
 	}
 
-	const q = page.url.searchParams;
-	const checkIn = $state(q.get('checkIn') ?? todayPlus(7));
-	const checkOut = $state(q.get('checkOut') ?? todayPlus(9));
-	const guests = Number(q.get('guests') ?? 2);
-	const roomsCount = Number(q.get('rooms') ?? 1);
-	const nights = nightsBetween(checkIn, checkOut);
+	// Prerendered shell: SvelteKit throws (url_search_unavailable_prerender)
+	// if a prerendered page reads `url.searchParams` during SSR, so the
+	// shell renders with defaults and the real query params are applied in
+	// onMount, in the browser. Hydration still matches (initial state =
+	// SSR state); the update happens after mount.
+	let checkIn = $state(todayPlus(7));
+	let checkOut = $state(todayPlus(9));
+	let guests = $state(2);
+	let roomsCount = $state(1);
+	let selected: Room | undefined = $state(ROOMS[0]);
+	const nights = $derived(nightsBetween(checkIn, checkOut));
 
-	let selected: Room | undefined = $state(ROOMS.find((r) => r.slug === q.get('room')) ?? ROOMS[0]);
+	onMount(() => {
+		const q = page.url.searchParams;
+		// No params at all: refresh the defaults from the client clock, so a
+		// shell built yesterday never shows stale default dates.
+		if (!q.get('checkIn') && !q.get('checkOut') && !q.get('room') && !q.get('guests') && !q.get('rooms')) {
+			checkIn = todayPlus(7);
+			checkOut = todayPlus(9);
+			return;
+		}
+		const ci = q.get('checkIn');
+		if (ci) checkIn = ci;
+		const co = q.get('checkOut');
+		if (co) checkOut = co;
+		const g = Number(q.get('guests') ?? NaN);
+		if (Number.isFinite(g) && g >= 1) guests = g;
+		const r = Number(q.get('rooms') ?? NaN);
+		if (Number.isFinite(r) && r >= 1) roomsCount = r;
+		const slug = q.get('room');
+		if (slug) {
+			const found = ROOMS.find((room) => room.slug === slug);
+			if (found) selected = found;
+		}
+	});
 
 	function fmtDate(s: string): string {
 		return new Date(s + 'T00:00:00').toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });

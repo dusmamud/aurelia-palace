@@ -27,11 +27,19 @@
 
 <!-- Meta (title, description, canonical, OG, Twitter) now comes from the layout via src/lib/data/meta.ts. -->
 
+<svelte:head>
+	<!-- Preload the LCP hero image: PageSpeed measured a 370ms resource-load
+		delay on the home hero (the 148KB inlined-CSS HTML is parsed first).
+		imagesrcset MUST match the <img> srcset exactly, or the browser
+		fetches the image twice. -->
+	<link rel="preload" as="image" imagesrcset={usrcset(IMAGES.hero, [480, 640, 800, 1200, 1600, 2000])} imagesizes="100vw" fetchpriority="high" />
+</svelte:head>
+
 <!-- Hero -->
 <section class="relative flex min-h-[92svh] items-end overflow-hidden bg-pine text-white">
 	<img
 		src={IMAGES.hero}
-		srcset={usrcset(IMAGES.hero, [800, 1200, 1600, 2000])}
+		srcset={usrcset(IMAGES.hero, [480, 640, 800, 1200, 1600, 2000])}
 		sizes="100vw"
 		alt="Amber Fort above Maota Lake, Jaipur"
 		fetchpriority="high"

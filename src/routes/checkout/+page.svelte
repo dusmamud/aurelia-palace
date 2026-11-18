@@ -1,19 +1,33 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
 	import { page } from '$app/state';
 	import { ArrowLeft, CalendarDays, CreditCard, Landmark, Lock, ShieldCheck, Smartphone, Users } from '@lucide/svelte';
 	import { inr, nightsBetween, ROOMS, totalFor, usrcset } from '#lib/data/hotel';
 	import { reveal } from '#lib/reveal';
 
-	const q = page.url.searchParams;
-	const roomSlug = q.get('room') ?? '';
-	const checkIn = q.get('checkIn') ?? '';
-	const checkOut = q.get('checkOut') ?? '';
-	const guests = Number(q.get('guests') ?? 2);
-	const roomsCount = Number(q.get('rooms') ?? 1);
-	const room = ROOMS.find((r) => r.slug === roomSlug);
-	const nights = checkIn && checkOut ? nightsBetween(checkIn, checkOut) : 0;
-	const totals = room && nights ? totalFor(room, nights) : null;
+	// Prerendered shell: no `url.searchParams` during SSR (SvelteKit throws
+	// url_search_unavailable_prerender). The shell renders the "room not
+	// found" empty state; the real params load in onMount, in the browser.
+	let roomSlug = $state('');
+	let checkIn = $state('');
+	let checkOut = $state('');
+	let guests = $state(2);
+	let roomsCount = $state(1);
+	const room = $derived(ROOMS.find((r) => r.slug === roomSlug));
+	const nights = $derived(checkIn && checkOut ? nightsBetween(checkIn, checkOut) : 0);
+	const totals = $derived(room && nights ? totalFor(room, nights) : null);
+
+	onMount(() => {
+		const q = page.url.searchParams;
+		roomSlug = q.get('room') ?? '';
+		checkIn = q.get('checkIn') ?? '';
+		checkOut = q.get('checkOut') ?? '';
+		const g = Number(q.get('guests') ?? NaN);
+		if (Number.isFinite(g) && g >= 1) guests = g;
+		const r = Number(q.get('rooms') ?? NaN);
+		if (Number.isFinite(r) && r >= 1) roomsCount = r;
+	});
 
 	let name = $state('');
 	let email = $state('');
